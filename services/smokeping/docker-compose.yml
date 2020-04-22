@@ -12,7 +12,7 @@ services:
       - smokeping-config:/config
       - smokeping-data:/data
     ports:
-      - 80:80
+      - 10080:80
 
 volumes:
   smokeping-config:
