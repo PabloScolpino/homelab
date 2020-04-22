@@ -1,13 +1,13 @@
-version: "3.7"
+version: "2"
 
 services:
   smokeping:
     image: linuxserver/smokeping
     restart: unless-stopped
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Argentina/Buenos_Aires
+      PUID: 1000
+      PGID: 1000
+      TZ: America/Argentina/Buenos_Aires
     volumes:
       - smokeping-config:/config
       - smokeping-data:/data
