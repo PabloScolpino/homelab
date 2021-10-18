@@ -1,0 +1,168 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: plex-config
+spec:
+  volumeName: plex-config
+  accessModes:
+    - ReadWriteMany
+  storageClassName: iscsi
+  resources:
+    requests:
+      storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: plex-transcode
+spec:
+  volumeName: plex-transcode
+  accessModes:
+    - ReadWriteMany
+  storageClassName: iscsi
+  resources:
+    requests:
+      storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: deluge-config
+spec:
+  volumeName: deluge-config
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: radar-config
+spec:
+  volumeName: radar-config
+  accessModes:
+    - ReadWriteMany
+  storageClassName: iscsi
+  resources:
+    requests:
+      storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: sonar-config
+spec:
+  volumeName: sonar-config
+  accessModes:
+    - ReadWriteMany
+  storageClassName: iscsi
+  resources:
+    requests:
+      storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: bazar-config
+spec:
+  volumeName: bazar-config
+  accessModes:
+    - ReadWriteMany
+  storageClassName: iscsi
+  resources:
+    requests:
+      storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: readar-config
+spec:
+  volumeName: readar-config
+  accessModes:
+    - ReadWriteMany
+  storageClassName: iscsi
+  resources:
+    requests:
+      storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: librarian-config
+spec:
+  volumeName: librarian-config
+  accessModes:
+    - ReadWriteMany
+  storageClassName: iscsi
+  resources:
+    requests:
+      storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: nas-downloads
+spec:
+  volumeName: nas-downloads
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: nas-movies
+spec:
+  volumeName: nas-movies
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: nas-series
+spec:
+  volumeName: nas-series
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: nas-books
+spec:
+  volumeName: nas-books
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Mi

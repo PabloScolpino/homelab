@@ -1,0 +1,97 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: media
+  name: bazar
+  labels:
+    app: bazar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bazar
+  template:
+    metadata:
+      labels:
+        app: bazar
+    spec:
+      containers:
+      - name: bazar
+        image: ghcr.io/linuxserver/bazarr
+        ports:
+          - name: web
+            containerPort: 6767
+            protocol: TCP
+        env:
+        - name: PUID
+          value: "1003"
+        - name: PGID
+          value: "1006"
+        volumeMounts:
+          - name: config
+            mountPath: "/config"
+          - name: movies
+            mountPath: "/movies"
+          - name: series
+            mountPath: "/series"
+      securityContext:
+        fsGroup: 1006
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: bazar-config
+      - name: movies
+        persistentVolumeClaim:
+          claimName: nas-movies
+      - name: series
+        persistentVolumeClaim:
+          claimName: nas-series
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: media
+  name: bazar
+  labels:
+    app: bazar
+spec:
+  type: NodePort
+  selector:
+    app: bazar
+  ports:
+  - name: web
+    port: 6767
+    protocol: TCP
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: media
+  name: bazar
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`bazar.ar.olumpos.net`)
+    kind: Rule
+    services:
+    - name: bazar
+      port: 6767
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: media
+  name: bazar-tls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`bazar.ar.olumpos.net`)
+    kind: Rule
+    services:
+    - name: bazar
+      port: 6767
+  tls:
+    certResolver: letsencrypt

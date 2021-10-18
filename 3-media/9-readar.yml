@@ -1,0 +1,95 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: media
+  name: readar
+  labels:
+    app: readar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: readar
+  template:
+    metadata:
+      labels:
+        app: readar
+    spec:
+      containers:
+      - name: readar
+        image: ghcr.io/linuxserver/readarr:nightly
+        ports:
+          - name: web
+            containerPort: 8787
+            protocol: TCP
+        env:
+        - name: PUID
+          value: "1003"
+        - name: PGID
+          value: "1006"
+        volumeMounts:
+          - name: config
+            mountPath: "/config"
+          - name: downloads
+            mountPath: "/downloads"
+          - name: books
+            mountPath: "/books"
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: readar-config
+      - name: downloads
+        persistentVolumeClaim:
+          claimName: nas-downloads
+      - name: books
+        persistentVolumeClaim:
+          claimName: nas-books
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: media
+  name: readar
+  labels:
+    app: readar
+spec:
+  type: NodePort
+  selector:
+    app: readar
+  ports:
+  - name: web
+    port: 8787
+    protocol: TCP
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: media
+  name: readar
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`readar.olumpos.net`)
+    kind: Rule
+    services:
+    - name: readar
+      port: 8787
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: media
+  name: readar-tls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`readar.olumpos.net`)
+    kind: Rule
+    services:
+    - name: readar
+      port: 8787
+  tls:
+    certResolver: letsencrypt
