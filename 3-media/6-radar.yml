@@ -1,0 +1,97 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: media
+  name: radar
+  labels:
+    app: radar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: radar
+  template:
+    metadata:
+      labels:
+        app: radar
+    spec:
+      containers:
+      - name: radar
+        image: ghcr.io/linuxserver/radarr
+        ports:
+          - name: web
+            containerPort: 7878
+            protocol: TCP
+        env:
+        - name: PUID
+          value: "1003"
+        - name: PGID
+          value: "1006"
+        volumeMounts:
+          - name: config
+            mountPath: "/config"
+          - name: downloads
+            mountPath: "/downloads"
+          - name: movies
+            mountPath: "/movies"
+      securityContext:
+        fsGroup: 1006
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: radar-config
+      - name: downloads
+        persistentVolumeClaim:
+          claimName: nas-downloads
+      - name: movies
+        persistentVolumeClaim:
+          claimName: nas-movies
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: media
+  name: radar
+  labels:
+    app: radar
+spec:
+  type: NodePort
+  selector:
+    app: radar
+  ports:
+  - name: web
+    port: 7878
+    protocol: TCP
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: media
+  name: radar
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`radar.ar.olumpos.net`)
+    kind: Rule
+    services:
+    - name: radar
+      port: 7878
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: media
+  name: radar-tls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`radar.ar.olumpos.net`)
+    kind: Rule
+    services:
+    - name: radar
+      port: 7878
+  tls:
+    certResolver: letsencrypt
