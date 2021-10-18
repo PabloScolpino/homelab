@@ -1,0 +1,35 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: status
+  name: smokeping
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`status.ar.olumpos.net`)
+    kind: Rule
+    # middlewares:
+      # - name: redirect-to-https
+        # namespace: default
+    services:
+    - name: smokeping
+      port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: status
+  name: smokeping-tls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`status.ar.olumpos.net`)
+    kind: Rule
+    services:
+    - name: smokeping
+      port: 80
+  tls:
+    certResolver: letsencrypt

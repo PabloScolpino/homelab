@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: smokeping-data
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: nas.olumpos.net
+    path: "/mnt/first-pool/volumes/smokeping/data"
+  storageClassName: nfs
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: smokeping-config
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: nas.olumpos.net
+    path: "/mnt/first-pool/volumes/smokeping/config"
+  storageClassName: nfs
