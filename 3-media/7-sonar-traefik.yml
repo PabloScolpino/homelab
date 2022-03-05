@@ -1,0 +1,32 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: media
+  name: sonar
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`sonar.ar.olumpos.net`)
+    kind: Rule
+    services:
+    - name: sonar
+      port: 8989
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: media
+  name: sonar-tls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`sonar.ar.olumpos.net`)
+    kind: Rule
+    services:
+    - name: sonar
+      port: 8989
+  tls:
+    certResolver: letsencrypt
