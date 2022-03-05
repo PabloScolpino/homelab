@@ -43,6 +43,12 @@ helm install -f 1-traefik/values.yml traefik traefik/traefik -n traefik
 kubectl apply -f 1-traefik/1-configuration.yml
 ```
 
+5. check traefik dashboard
+```
+kubectl port-forward pod/traefik-[:alpha:]* -n traefik 9000:9000
+open http://localhost:9000/dashboard/
+```
+
 # Tools
 
 ## [Kubectx](https://github.com/ahmetb/kubectx)
