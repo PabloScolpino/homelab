@@ -1,0 +1,42 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lingua-finder-postgres
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: nas.olumpos.net
+    path: "/mnt/first-pool/volumes/lingua-finder/postgres"
+  storageClassName: nfs
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lingua-finder-mongo
+spec:
+  capacity:
+    storage: 500Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: nas.olumpos.net
+    path: "/mnt/first-pool/volumes/lingua-finder/mongo"
+  storageClassName: nfs
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lingua-finder-redis
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: nas.olumpos.net
+    path: "/mnt/first-pool/volumes/lingua-finder/redis"
+  storageClassName: nfs
