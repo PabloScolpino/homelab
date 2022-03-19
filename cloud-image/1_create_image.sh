@@ -1,3 +1,15 @@
+#
+#
+#
+#
+# RUN THIS IN A LINUX BOX
+#
+#   NOT in the Hypervisor
+#
+#
+#
+#
+
 # Download image
 # axel https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
 
