@@ -18,5 +18,3 @@ qm template 9000
 # qm set 9000 --ciuser "quantum"
 # qm set 9000 --cipassword "quantum"
 # qm set 9000 --ipconfig0 "ip=dhcp"
-
-. clone.sh
