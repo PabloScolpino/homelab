@@ -1,0 +1,4 @@
+---
+packages:
+  debian:
+    - python3-apt

@@ -1,0 +1,6 @@
+---
+- hosts: all
+  roles:
+    - ansible_dependencies
+    - user_in_sudoers
+    - terminal
