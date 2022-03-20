@@ -1,29 +1,29 @@
 resource "proxmox_vm_qemu" "unifi_vm" {
   target_node = var.target_node
+  name        = "unifi.ar.olumpos.net"
+  desc        = "Unifi controller VM"
 
   os_type = "cloud-init"
   clone   = var.template_name
+  count   = 1
+  vmid    = 100 + var.unifi_id
+
   onboot  = true
   boot    = "c"
   agent   = 1
 
-  count = 1
-
-  vmid = 101
-  name = "unifi.ar.olumpos.net"
-  desc = "Unifi controller VM"
   bios    = "ovmf"
   sockets = 1
-  cores = 2
-  numa = true
+  cores   = 2
+  numa    = true
   balloon = 512
-  memory = 2048
+  memory  = 2048
 
   disk {
-    size            = "29900M"
-    type            = "scsi"
-    storage         = "local-lvm"
-    ssd             = 1
+    size    = "29900M"
+    type    = "scsi"
+    storage = "local-lvm"
+    ssd     = 1
   }
 
   network {
@@ -37,55 +37,55 @@ resource "proxmox_vm_qemu" "unifi_vm" {
     ]
   }
 
-  # ipconfig0 = "ip=dhcp"
-
-  ciuser = "quantum"
-  sshkeys = var.sshkeys
-
-  ipconfig0 = "ip=192.168.1.14/24,gw=192.168.1.1"
-  nameserver = "192.168.1.12"
-  searchdomain = "olumpos.net"
+  ciuser       = var.ciuser
+  sshkeys      = var.sshkeys
+  ipconfig0    = "ip=192.168.1.${ var.unifi_id }/24,gw=${var.gateway}"
+  nameserver   = var.nameserver
+  searchdomain = var.searchdomain
 }
 
+resource "proxmox_vm_qemu" "k8-node" {
+  target_node = var.target_node
+  name        = "k8-${count.index + 1}.ar.olumpos.net"
+  desc        = "Container cluster number ${count.index + 1}"
 
-# resource "proxmox_vm_qemu" "proxmox_docker_swarm" {
-#   target_node = var.target_node
-#
-#   os_type = "cloud-init"
-#   clone   = var.template_name
-#   onboot  = true
-#   boot    = "c"
-#   agent   = 1
-#
-#   count = 1
-#
-#   bios    = "ovmf"
-#   sockets = 1
-#
-#   network {
-#     model  = "virtio"
-#     bridge = "vmbr0"
-#   }
-#   #== Common Resources ==
-#
-#   #== Cluster Node =====================================================
-#   vmid    = var.vm + count.index
-#   name    = "cluster-${count.index + 1}.olumpos.net"
-#   desc    = "Container cluster number ${count.index + 1}"
-#   cores   = 8
-#   balloon = 8192
-#   memory  = 16384
-#
-#   disk {
-#     size    = "100G"
-#     type    = "scsi"
-#     storage = "local-lvm"
-#   }
-#
-#
-#   #== Resources ==
-#
-#   # cicustom = "cloud_config.yml"
-#   # ciuser = "quantum"
-#
-# }
+  os_type = "cloud-init"
+  clone   = var.template_name
+  count   = 1
+  vmid    = 100 + var.k8_node_id + count.index
+
+  onboot  = true
+  boot    = "c"
+  agent   = 1
+
+  bios    = "ovmf"
+  sockets = 1
+  cores   = 4
+  numa    = true
+  balloon = 4096
+  memory  = 16384
+
+  disk {
+    size    = "203980M"
+    type    = "scsi"
+    storage = "local-lvm"
+    ssd     = 1
+  }
+
+  network {
+    model  = "virtio"
+    bridge = "vmbr0"
+  }
+
+  lifecycle {
+    ignore_changes = [
+      network,
+    ]
+  }
+
+  ciuser       = var.ciuser
+  sshkeys      = var.sshkeys
+  ipconfig0    = "ip=192.168.1.${var.k8_node_id + count.index}/24,gw=${var.gateway}"
+  nameserver   = var.nameserver
+  searchdomain = var.searchdomain
+}
