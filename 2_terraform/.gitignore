@@ -1,3 +1,5 @@
 variables.tf
 .terraform
 *.log
+*.tfstate
+*.tfstate.backup
