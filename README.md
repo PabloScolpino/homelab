@@ -1,27 +1,53 @@
 # Purpose
 
-* Have all homelab services running as containers in our homelab
-* have all configuration for the services as code
-* updates are automatic and are triggered by git events
-* inbound traffic from lan and wan.
+* Have many services running as containers in our homelab
+* Have some services running as VMs in our homelab
+* Have all configuration for the Infrastructure, VMs, services as code
+* Service updates are automatic and are triggered by git events
+* Inbound traffic from lan and wan.
 * Reverse dns /proxy
 
 # Platform
 
 * one openwrt router
+  * wireguard
 * one proxmox node
-  * microk8s on VM
   * unbound / pihole on VM
+  * unifi controller
+  * microk8s on VM
+  * ? FreeNAS ?
 * one freenas
+  * nfs server
+  * cifs server
 
-## Setup
+## Basic infrastructure setup
 
-### FreeNAS install is manual
+### OpenWRT
+OpenWRT install is manual
+
+### FreeNAS
+FreeNAS install is manual
 
 ### Proxmox
 Proxmox install is manual
 
-#### Kubernetes cluster
+## VM Template creation
+
+The contents of `1_cloud_image` describe how to create a working Proxmox-cloud-init template
+
+This template allows the automated creation of VMs based on Ubuntu 20 lts
+
+## VM Creation
+
+The creation of the VMs will use the template created in the previous step
+This creation will be done using `2_terraform` files
+
+## VM configuration
+
+Look at `3_ansible`
+
+
+### Kubernetes cluster
 Single node microk8s
 
 1. [Microk8s getting started](https://microk8s.io/docs)
@@ -62,12 +88,3 @@ Nice electron UI to inspect / monitor k8s clustes
 ## [Devspace](https://github.com/loft-sh/devspace)
 
 Generate Helm charts and some other dev tasks are automated
-
-# Services
-
-## Definition
-
-## Configuration
-
-## Deployment
-
