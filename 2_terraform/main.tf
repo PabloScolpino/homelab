@@ -4,7 +4,6 @@ resource "proxmox_vm_qemu" "unifi_vm" {
   os_type = "cloud-init"
   clone   = var.template_name
   onboot  = true
-  # oncreate = false
   boot    = "c"
   agent   = 1
 
@@ -21,7 +20,7 @@ resource "proxmox_vm_qemu" "unifi_vm" {
   memory = 2048
 
   disk {
-    size            = "30G"
+    size            = "29900M"
     type            = "scsi"
     storage         = "local-lvm"
     ssd             = 1
@@ -32,18 +31,22 @@ resource "proxmox_vm_qemu" "unifi_vm" {
     bridge = "vmbr0"
   }
 
-  # cicustom = "cloud_config.yml"
-  cicustom = "user=local:snippets/user_data_vm-${count.index}.yml"
+  lifecycle {
+    ignore_changes = [
+      network,
+    ]
+  }
 
   # ipconfig0 = "ip=dhcp"
 
-  # ipconfig0 = "ip=192.168.1.14/24,gw=192.168.1.1"
-  # nameserver = "192.168.1.12"
-  # ciuser = "quantum"
-  # cipassword = "quantum"
-  # ssh_user = "quantum"
-  # sshkeys = var.sshkeys
+  ciuser = "quantum"
+  sshkeys = var.sshkeys
+
+  ipconfig0 = "ip=192.168.1.14/24,gw=192.168.1.1"
+  nameserver = "192.168.1.12"
+  searchdomain = "olumpos.net"
 }
+
 
 # resource "proxmox_vm_qemu" "proxmox_docker_swarm" {
 #   target_node = var.target_node
@@ -64,20 +67,6 @@ resource "proxmox_vm_qemu" "unifi_vm" {
 #     bridge = "vmbr0"
 #   }
 #   #== Common Resources ==
-#
-#   #== Unifi Controller =================================================
-#   # vmid = 101
-#   # name = "unifi.ar.olumpos.net"
-#   # desc = "Unifi controller VM"
-#   # cores = 2
-#   # balloon = 512
-#   # memory = 2048
-#   # disk {
-#   #  size            = "30G"
-#   #  type            = "scsi"
-#   #  storage         = "local-lvm"
-#   # }
-#
 #
 #   #== Cluster Node =====================================================
 #   vmid    = var.vm + count.index
