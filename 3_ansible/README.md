@@ -11,6 +11,10 @@
     ansible-inventory -i inventory --graph
     ansible-playbook ./dev_env_setup.yml -i ./inventory/all.yml --list-hosts
 
+# Infrastructure
+
+    ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --ask-become-pass
+
 # Dev machine setup
 
 ## setup all machines
