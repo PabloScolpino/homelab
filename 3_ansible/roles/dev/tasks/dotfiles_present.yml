@@ -1,0 +1,17 @@
+- name: Dotfiles present
+  include_role:
+    name: geerlingguy.dotfiles
+  vars:
+    dotfiles_repo: https://github.com/PabloScolpino/terminalrc.git
+    dotfiles_repo_version: master
+    dotfiles_repo_local_destination: "~/.dotfiles"
+    dotfiles_home: "~"
+    dotfiles_files:
+      - .editrc
+      - .gemrc
+      - .gitignore_global
+      - .inputrc
+      - .vimrc
+      - .UltiSnips
+
+# - name: Source the right file in terminal rc

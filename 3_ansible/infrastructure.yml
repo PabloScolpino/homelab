@@ -1,0 +1,11 @@
+---
+- hosts: unifi
+  become: yes
+  roles:
+    - ansible_dependencies
+    - user_in_sudoers
+    - terminal
+    - nephelaiio.unifi_controller
+  vars:
+    unifi_java_packages: openjdk-11-jre-headless
+

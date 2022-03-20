@@ -1,0 +1,10 @@
+---
+- hosts: all
+  roles:
+    - ansible_dependencies
+    - user_in_sudoers
+    - terminal
+- hosts: all
+  become: yes
+  roles:
+    - docker-node

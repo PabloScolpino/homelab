@@ -1,0 +1,5 @@
+---
+- include_tasks: packages_present.yml
+- include_tasks: dotfiles_present.yml
+- include_tasks: source_rc_files.yml
+- include_tasks: vim_plug_present.yml

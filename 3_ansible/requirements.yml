@@ -1,0 +1,6 @@
+---
+- geerlingguy.docker
+- geerlingguy.dotfiles
+- weareinteractive.sudo
+- geerlingguy.postgresql
+- nephelaiio.unifi_controller
