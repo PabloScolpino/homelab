@@ -17,7 +17,7 @@ resource "proxmox_vm_qemu" "unifi_vm" {
   cores   = 2
   numa    = true
   balloon = 512
-  memory  = 2048
+  memory  = 3072
 
   disk {
     size    = "29900M"
