@@ -44,15 +44,15 @@ resource "proxmox_vm_qemu" "unifi_vm" {
   searchdomain = var.searchdomain
 }
 
-resource "proxmox_vm_qemu" "k8-node" {
+resource "proxmox_vm_qemu" "k8s-node" {
   target_node = var.target_node
-  name        = "k8-${count.index + 1}.ar.olumpos.net"
+  name        = "k8s-${count.index + 1}.ar.olumpos.net"
   desc        = "Container cluster number ${count.index + 1}"
 
   os_type = "cloud-init"
   clone   = var.template_name
   count   = 1
-  vmid    = 100 + var.k8_node_id + count.index
+  vmid    = 100 + var.k8s_node_id + count.index
 
   onboot  = true
   boot    = "c"
@@ -85,7 +85,7 @@ resource "proxmox_vm_qemu" "k8-node" {
 
   ciuser       = var.ciuser
   sshkeys      = var.sshkeys
-  ipconfig0    = "ip=192.168.1.${var.k8_node_id + count.index}/24,gw=${var.gateway}"
+  ipconfig0    = "ip=192.168.1.${var.k8s_node_id + count.index}/24,gw=${var.gateway}"
   nameserver   = var.nameserver
   searchdomain = var.searchdomain
 }
