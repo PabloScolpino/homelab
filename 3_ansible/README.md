@@ -11,9 +11,12 @@
     ansible-inventory -i inventory --graph
     ansible-playbook ./dev_env_setup.yml -i ./inventory/all.yml --list-hosts
 
-# Infrastructure
+# Homelab Infrastructure
 
     ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --ask-become-pass
+
+# Pi Remote Node
+    ansible-playbook ./pi.yml -i ./inventory/all.yml --limit pi --ask-become-pass
 
 # Dev machine setup
 
