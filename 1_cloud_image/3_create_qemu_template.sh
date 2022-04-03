@@ -18,7 +18,7 @@ qm importdisk 9000 focal-server-cloudimg-amd64.img.orig local-lvm
 # 2.b.1 Personalized focal server image with virt-customize
 # qm importdisk 9000 focal-server-cloudimg-amd64.img local-lvm
 
-# 2.b.2 Pristine debian cloud-image 
+# 2.b.2 Pristine debian cloud-image
 # qm importdisk 9000 debian-11-genericcloud-amd64-20220310-944.qcow2 local-lvm
 
 # 3. Configure the VM
@@ -40,12 +40,12 @@ qm set 9000 --agent enabled=1
 # NOTE: DO NOT SET IT AS TEMPLATE YET
 
 # 5. configure the VM
-#    followed the steps here: https://www.youtube.com/watch?v=h_PIjBHSDnw&t=663 
+#    followed the steps here: https://www.youtube.com/watch?v=h_PIjBHSDnw&t=663
 # 5.1 boot the vm
 # 5.2 install qemu-guest-agent
-#    apt install qemu-guest-agent     
+#    apt install qemu-guest-agent
 # 5.3 install qemu-guest-agent
- 
+
 
 # 6. set vm as template
 # qm template 9000

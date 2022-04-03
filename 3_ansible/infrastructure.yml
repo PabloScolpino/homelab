@@ -6,3 +6,9 @@
     - user_in_sudoers
     - terminal
     - nephelaiio.unifi_controller
+
+- hosts: k8s
+  roles:
+    - ansible_dependencies
+    - user_in_sudoers
+    - microk8s
