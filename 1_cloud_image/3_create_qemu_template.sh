@@ -6,16 +6,22 @@
 #
 #
 disk_name=main
-vmid=9000
 cloud_image_file=focal-server-cloudimg-amd64.img
+vmid=9000
+vmname=cloud-template
+
+echo "Input cipassword:"
+read cipassword
 
 # 1. Create template VM
 qm create ${vmid} \
+  --name ${vmname} \
   --bios ovmf \
   --memory 2048 \
   --cores 2 \
   --net0 virtio,bridge=vmbr0 \
-  --ostype l26
+  --ostype l26 \
+  --numa true
 
 
 # 2. Import Pristine image downloaded from canonicle
@@ -43,8 +49,14 @@ qm set ${vmid} --agent enabled=1
 #    be archieved by using the cli
 #
 # qm set ${vmid} --ciuser "quantum"
-# qm set ${vmid} --cipassword "quantum"
 # qm set ${vmid} --ipconfig0 "ip=dhcp"
+qm set ${vmid} --ciuser quantum
+qm set ${vmid} --cipassword $cipassword
+qm set ${vmid} --sshkeys ./id_rsa.pub
+qm set ${vmid} --citype nocloud
+qm set ${vmid} --searchdomain ar.olumpos.net
+qm set ${vmid} --nameserver 192.168.1.12
+qm set ${vmid} --ipconfig0 ip=dhcp
 
 # NOTE: DO NOT SET IT AS TEMPLATE YET
 
