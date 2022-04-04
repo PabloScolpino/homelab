@@ -5,10 +5,12 @@
 #
 #
 #
-disk_name=local-lvm
+disk_name=main
+vmid=9000
+cloud_image_file=focal-server-cloudimg-amd64.img
 
 # 1. Create template VM
-qm create 9000 \
+qm create ${vmid} \
   --bios ovmf \
   --memory 2048 \
   --cores 2 \
@@ -17,32 +19,32 @@ qm create 9000 \
 
 
 # 2. Import Pristine image downloaded from canonicle
-qm importdisk 9000 focal-server-cloudimg-amd64.img.orig ${disk_name}
+qm importdisk ${vmid} ${cloud_image_file} ${disk_name}
 
 
 # 2.b These were other attempts that did not quite work
 
 # 2.b.1 Personalized focal server image with virt-customize
-# qm importdisk 9000 focal-server-cloudimg-amd64.img ${disk_name}
+# qm importdisk ${vmid} focal-server-cloudimg-amd64.img ${disk_name}
 
 # 2.b.2 Pristine debian cloud-image
-# qm importdisk 9000 debian-11-genericcloud-amd64-20220310-944.qcow2 ${disk_name}
+# qm importdisk ${vmid} debian-11-genericcloud-amd64-20220310-944.qcow2 ${disk_name}
 
 # 3. Configure the VM
-qm set 9000 --scsihw virtio-scsi-pci --scsi0 ${disk_name}:vm-9000-disk-0
-qm set 9000 --ide2 ${disk_name}:cloudinit
-qm set 9000 --boot c --bootdisk scsi0
-qm set 9000 --serial0 socket --vga serial0
-qm set 9000 --agent enabled=1
+qm set ${vmid} --scsihw virtio-scsi-pci --scsi0 ${disk_name}:vm-${vmid}-disk-0
+qm set ${vmid} --ide2 ${disk_name}:cloudinit
+qm set ${vmid} --boot c --bootdisk scsi0
+qm set ${vmid} --serial0 socket --vga serial0
+qm set ${vmid} --agent enabled=1
 
 
 # 4. Configure the cloud init settings on Proxmox
 #    The successful attemp was done using the UI, but the same could/should
 #    be archieved by using the cli
 #
-# qm set 9000 --ciuser "quantum"
-# qm set 9000 --cipassword "quantum"
-# qm set 9000 --ipconfig0 "ip=dhcp"
+# qm set ${vmid} --ciuser "quantum"
+# qm set ${vmid} --cipassword "quantum"
+# qm set ${vmid} --ipconfig0 "ip=dhcp"
 
 # NOTE: DO NOT SET IT AS TEMPLATE YET
 
@@ -55,4 +57,4 @@ qm set 9000 --agent enabled=1
 
 
 # 6. set vm as template
-# qm template 9000
+# qm template ${vmid}
