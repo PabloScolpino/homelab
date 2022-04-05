@@ -2,3 +2,4 @@
 *.img
 *.orig
 *.qcow2
+*.pub

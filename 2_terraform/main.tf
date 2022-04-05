@@ -8,9 +8,9 @@ resource "proxmox_vm_qemu" "unifi_vm" {
   count   = 1
   vmid    = 100 + var.unifi_id
 
-  onboot  = true
-  boot    = "c"
-  agent   = 1
+  onboot = true
+  boot   = "c"
+  agent  = 1
 
   bios    = "ovmf"
   sockets = 1
@@ -22,7 +22,7 @@ resource "proxmox_vm_qemu" "unifi_vm" {
   disk {
     size    = "29900M"
     type    = "scsi"
-    storage = "local-lvm"
+    storage = var.disk_storage
     ssd     = 1
   }
 
@@ -32,14 +32,15 @@ resource "proxmox_vm_qemu" "unifi_vm" {
   }
 
   lifecycle {
+    prevent_destroy = true
     ignore_changes = [
-      network,
+      network, vmid, clone, full_clone
     ]
   }
 
   ciuser       = var.ciuser
   sshkeys      = var.sshkeys
-  ipconfig0    = "ip=192.168.1.${ var.unifi_id }/24,gw=${var.gateway}"
+  ipconfig0    = "ip=192.168.1.${var.unifi_id}/24,gw=${var.gateway}"
   nameserver   = var.nameserver
   searchdomain = var.searchdomain
 }
@@ -54,9 +55,9 @@ resource "proxmox_vm_qemu" "k8s-node" {
   count   = 1
   vmid    = 100 + var.k8s_node_id + count.index
 
-  onboot  = true
-  boot    = "c"
-  agent   = 1
+  onboot = true
+  boot   = "c"
+  agent  = 1
 
   bios    = "ovmf"
   sockets = 1
@@ -68,7 +69,7 @@ resource "proxmox_vm_qemu" "k8s-node" {
   disk {
     size    = "203980M"
     type    = "scsi"
-    storage = "local-lvm"
+    storage = var.disk_storage
     ssd     = 1
   }
 
