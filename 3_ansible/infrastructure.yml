@@ -8,7 +8,8 @@
     - nephelaiio.unifi_controller
 
 - hosts: k8s
+  become: yes
   roles:
     - ansible_dependencies
     - user_in_sudoers
-    - microk8s
+    - k8s
