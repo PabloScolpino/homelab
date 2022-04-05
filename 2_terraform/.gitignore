@@ -1,5 +1,6 @@
 variables.tf
 .terraform
+.terraform.tfstate.lock.info
 *.log
 *.tfstate
 *.tfstate.backup
