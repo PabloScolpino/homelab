@@ -7,3 +7,8 @@
     terraform plan
     # verify what's supposedly going to happen
     terraform apply
+
+
+# Importing existing VM into infrastructure definition
+
+    terraform import 'proxmox_vm_qemu.unifi_vm[0]' pve/qemu/114
