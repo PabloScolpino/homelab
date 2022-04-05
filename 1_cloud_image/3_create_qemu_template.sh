@@ -11,7 +11,17 @@ vmid=9000
 vmname=cloud-template
 
 echo "Input cipassword:"
-read cipassword
+read -s cipassword
+echo "again for confirmation:"
+read -s cipassword2
+
+if [[ $cipassword != $cipassword2 ]]
+then
+  echo "Passwords do not match"
+  exit 1
+fi
+
+exit
 
 # 1. Create template VM
 qm create ${vmid} \
