@@ -21,8 +21,6 @@ then
   exit 1
 fi
 
-exit
-
 # 1. Create template VM
 qm create ${vmid} \
   --name ${vmname} \
