@@ -34,7 +34,7 @@ resource "proxmox_vm_qemu" "unifi_vm" {
   lifecycle {
     prevent_destroy = true
     ignore_changes = [
-      network, vmid, clone, full_clone
+      network, vmid, clone, full_clone, qemu_os
     ]
   }
 
