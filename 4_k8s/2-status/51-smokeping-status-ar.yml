@@ -10,9 +10,6 @@ spec:
   routes:
   - match: Host(`status.ar.olumpos.net`)
     kind: Rule
-    # middlewares:
-      # - name: redirect-to-https
-        # namespace: default
     services:
     - name: smokeping
       port: 80
