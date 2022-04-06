@@ -1,0 +1,6 @@
+---
+- name: Retrieve kubectl config
+  ansible.builtin.fetch:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: ../4_k8s/kube-config.yaml
+    flat: yes
