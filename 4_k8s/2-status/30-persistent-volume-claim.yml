@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: status
+  name: smokeping-config
+spec:
+  volumeName: smokeping-config
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: status
+  name: smokeping-data
+spec:
+  volumeName: smokeping-data
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Mi
