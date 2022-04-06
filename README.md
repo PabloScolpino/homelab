@@ -37,54 +37,16 @@ The contents of `1_cloud_image` describe how to create a working Proxmox-cloud-i
 
 This template allows the automated creation of VMs based on Ubuntu 20 lts
 
-## VM Creation
+## VM Provisioning
 
 The creation of the VMs will use the template created in the previous step
 This creation will be done using `2_terraform` files
 
-## VM configuration
+## VM Configuration
 
 Look at `3_ansible`
 
+## Service deployments
 
-### Kubernetes cluster
-Single node microk8s
+Look at `4_k8s`
 
-1. [Microk8s getting started](https://microk8s.io/docs)
-2. Enable microk8s modules
-```
-microk8s enable dns storage metallb
-```
-3. Get cluster config and setup remote admin
-```
-microk8s config > cluster.conf
-```
-4. Install traefik
-full install, not through microk8s plugin
-```
-helm repo add traefik https://helm.traefik.io/traefik
-helm repo update
-kubectl create namespace traefik
-helm install -f 1-traefik/values.yml traefik traefik/traefik -n traefik
-kubectl apply -f 1-traefik/1-configuration.yml
-```
-
-5. check traefik dashboard
-```
-kubectl port-forward pod/traefik-[:alpha:]* -n traefik 9000:9000
-open http://localhost:9000/dashboard/
-```
-
-# Tools
-
-## [Kubectx](https://github.com/ahmetb/kubectx)
-
-To swich between clusters easily
-
-## [Lens](https://github.com/lensapp/lens)
-
-Nice electron UI to inspect / monitor k8s clustes
-
-## [Devspace](https://github.com/loft-sh/devspace)
-
-Generate Helm charts and some other dev tasks are automated
