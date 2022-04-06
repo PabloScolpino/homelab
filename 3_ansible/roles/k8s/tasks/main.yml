@@ -1,4 +1,9 @@
 ---
+- name: NFS support is present
+  ansible.builtin.package:
+    name: nfs-common
+    state: present
+
 - name: k3s is present
   include_role:
     name: xanmanning.k3s
