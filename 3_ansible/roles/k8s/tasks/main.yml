@@ -1,19 +1,4 @@
 ---
-- name: NFS support is present
-  ansible.builtin.package:
-    name: nfs-common
-    state: present
-
-- name: k3s is present
-  include_role:
-    name: xanmanning.k3s
-  vars:
-    k3s_become: true
-
-- name: Traefik custom config is present
-  ansible.builtin.copy:
-    src: traefik-config.yml
-    dest: /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
-    owner: root
-    group: root
-    mode: '0644'
+- include_tasks: nfs_support_present.yml
+- include_tasks: k3s_present.yml
+# - include_tasks: traefik_configurated.yml

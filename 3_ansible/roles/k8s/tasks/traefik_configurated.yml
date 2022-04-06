@@ -1,0 +1,8 @@
+---
+- name: Traefik custom config is present
+  ansible.builtin.copy:
+    src: traefik-config.yml
+    dest: /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
+    owner: root
+    group: root
+    mode: '0644'

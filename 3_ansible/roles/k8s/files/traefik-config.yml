@@ -6,24 +6,33 @@ metadata:
   namespace: kube-system
 spec:
   valuesContent: |-
+    logs:
+      general:
+        # By default, the logs use a text format (common), but you can
+        # also ask for the json format in the format option
+        # format: json
+        # By default, the level is set to ERROR. Alternative logging levels are DEBUG, PANIC, FATAL, ERROR, WARN, and INFO.
+        level: DEBUG
+
     ports:
       web:
         redirectTo: websecure
-    # image:
-      # name: traefik
-      # tag: v2.6.1
-    # proxyProtocol:
-      # enabled: true
-      # trustedIPs:
-        # - 10.0.0.0/8
-    # forwardedHeaders:
-      # enabled: true
-      # trustedIPs:
-        # - 10.0.0.0/8
-    # ssl:
-      # enabled: true
-      # permanentRedirect: true
-    additionalArguments:
-      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
-      - --certificatesresolvers.letsencrypt.acme.email=pabloscolpino@gmail.com
-      - --certificatesresolvers.letsencrypt.acme.storage=/data/letsencrypt.json
+
+    # additionalArguments:
+      # - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+      # - --certificatesresolvers.letsencrypt.acme.email=pabloscolpino@gmail.com
+      # - --certificatesresolvers.letsencrypt.acme.storage=/data/letsencrypt.json
+              # permanentRedirect: true
+
+    # env:
+      # - name: DNSMADEEASY_API_KEY
+        # value: 86018377
+      # - name: DNSMADEEASY_API_SECRET
+        # value: sS6QUaxm7BSSBZ
+
+    # certificatesResolvers:
+      # letsencrypt:
+        # acme:
+          # dnsChallenge:
+            # provider: dnsmadeeasy
+            # delayBeforeCheck: 0
