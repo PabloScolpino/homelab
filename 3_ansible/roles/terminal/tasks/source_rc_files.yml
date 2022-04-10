@@ -1,5 +1,0 @@
----
-- name: Source RC files in terminal [bash]
-  lineinfile:
-    path: ~/.bashrc
-    line: . $HOME/.dotfiles/config/source_this.bash

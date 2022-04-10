@@ -1,18 +1,18 @@
-- name: Packages are present [Debian]
+---
+- name: packages present
   become: yes
-  when: ansible_os_family == 'Debian'
-  apt:
+  ansible.builtin.package:
+    name: "{{ item }}"
     state: present
-    install_recommends: false
-    name: '{{ item }}'
-  with_items:
-    "{{ packages.debian }}"
-
-- name: Packages are present [Archlinux]
-  become: yes
-  when: ansible_os_family == 'Archlinux'
-  pacman:
-    state: present
-    name: '{{ item }}'
-  with_items:
-    "{{ packages.archlinux }}"
+  loop:
+    - git
+    - vim-nox
+    - fonts-powerline
+    - silversearcher-ag
+    - rbenv
+    - watch
+    - htop
+    - mosh
+    - httpie
+    # - fzf
+    # - exa
