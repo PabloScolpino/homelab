@@ -16,24 +16,12 @@ variable "target_node" {
   default = "pve"
 }
 
-variable "vm" {
-  default = "100"
-}
-
-variable "unifi_id" {
-  default = "14"
-}
-
-variable "k8_node_id" {
-  default = "20"
-}
-
 variable "gateway" {
-  default = "192.168.1.1"
+  default = "10.0.0.1"
 }
 
 variable "nameserver" {
-  default = "192.168.1.12"
+  default = "10.0.0.1"
 }
 
 variable "searchdomain" {
@@ -41,7 +29,7 @@ variable "searchdomain" {
 }
 
 variable "template_name" {
-  default = "VM 9000"
+  default = "cloud-template"
 }
 
 variable "ciuser" {
