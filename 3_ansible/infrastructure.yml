@@ -12,6 +12,12 @@
     - user_in_sudoers
     - terminal
 
+- hosts: kulturnetzd
+  roles:
+    - ansible_dependencies
+    - user_in_sudoers
+    - terminal
+
 - hosts: k8s
   roles:
     - ansible_dependencies
