@@ -1,3 +1,4 @@
+---
 - name: Dotfiles present
   include_role:
     name: geerlingguy.dotfiles
@@ -7,9 +8,9 @@
     dotfiles_repo_local_destination: "~/.dotfiles"
     dotfiles_home: "~"
     dotfiles_files:
+      - .UltiSnips
       - .editrc
       - .gemrc
       - .gitignore_global
       - .inputrc
       - .vimrc
-      - .UltiSnips
