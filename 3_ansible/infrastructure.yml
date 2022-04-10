@@ -1,15 +1,20 @@
 ---
 - hosts: unifi
-  become: yes
   roles:
     - ansible_dependencies
     - user_in_sudoers
     - terminal
-    - nephelaiio.unifi_controller
+    - unifi_controller
 
-- hosts: k8s
-  become: yes
+- hosts: plex
   roles:
     - ansible_dependencies
     - user_in_sudoers
+    - terminal
+
+- hosts: k8s
+  roles:
+    - ansible_dependencies
+    - user_in_sudoers
+    - terminal
     - k8s

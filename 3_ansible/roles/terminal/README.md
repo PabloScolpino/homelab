@@ -3,6 +3,8 @@ Role Name
 
 Setup remote terminal to my defaults
 
+DO NOT USE `become: yes`
+
 Example Playbook
 ----------------
 
