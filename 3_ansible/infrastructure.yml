@@ -18,6 +18,7 @@
     - ansible_dependencies
     - user_in_sudoers
     - terminal
+    - moodle
 
 - hosts: k8s
   roles:

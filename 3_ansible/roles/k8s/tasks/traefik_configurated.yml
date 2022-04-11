@@ -1,5 +1,6 @@
 ---
 - name: Traefik custom config is present
+  become: yes
   ansible.builtin.copy:
     src: traefik-config.yml
     dest: /var/lib/rancher/k3s/server/manifests/traefik-config.yaml

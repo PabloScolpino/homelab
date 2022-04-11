@@ -1,5 +1,6 @@
 ---
 - name: k3s is present
+  become: yes
   include_role:
     name: xanmanning.k3s
   vars:
