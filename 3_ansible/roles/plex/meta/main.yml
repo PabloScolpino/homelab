@@ -1,0 +1,7 @@
+---
+dependencies: []
+  # - role: wilmardo.plex
+    # become: yes
+    # vars:
+      # tautulli_install: false
+      # plexupdate_install: false
