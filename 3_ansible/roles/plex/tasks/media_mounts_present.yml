@@ -1,0 +1,25 @@
+- name: CIFS Utilities present
+  become: yes
+  ansible.builtin.package:
+    name: cifs-utils
+    state: present
+
+- name: Mount points exist
+  become: yes
+  ansible.builtin.file:
+    path: "{{ item.target }}"
+    state: directory
+    mode: '0755'
+    owner: root
+    group: root
+  loop: "{{ media_shares }}"
+
+- name: Network shares mounted
+  become: yes
+  ansible.posix.mount:
+    src: "{{ item.source }}"
+    path: "{{ item.target }}"
+    fstype: cifs
+    opts: 'username={{ username }},password={{ password }}'
+    state: mounted
+  loop: "{{ media_shares }}"

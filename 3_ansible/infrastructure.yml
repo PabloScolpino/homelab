@@ -11,6 +11,7 @@
     - ansible_dependencies
     - user_in_sudoers
     - terminal
+    - plex
 
 - hosts: kulturnetzd
   roles:

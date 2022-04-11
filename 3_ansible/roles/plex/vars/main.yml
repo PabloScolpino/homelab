@@ -1,0 +1,9 @@
+---
+username: pmedia
+password: QU..cJc*UVry8Wt9ftvV
+media_shares:
+  - source: \\10.0.0.5\plex\Movies
+    target: /mnt/movies
+
+  - source: \\10.0.0.5\plex\Series
+    target: /mnt/series

@@ -1,0 +1,4 @@
+---
+- include_tasks: plex_present.yml
+- include_tasks: media_mounts_present.yml
+# - include_tasks: hardware_encoder_configured.yml
