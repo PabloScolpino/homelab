@@ -60,7 +60,7 @@ resource "proxmox_vm_qemu" "k8s" {
   memory  = 16384
 
   disk {
-    size    = "200G"
+    size    = "203980M"
     type    = "scsi"
     storage = var.disk_storage
     ssd     = 1
@@ -98,7 +98,7 @@ resource "proxmox_vm_qemu" "kulturnetzd" {
   memory  = 4096
 
   disk {
-    size    = "60G"
+    size    = "60620M"
     type    = "scsi"
     storage = var.disk_storage
     ssd     = 1
