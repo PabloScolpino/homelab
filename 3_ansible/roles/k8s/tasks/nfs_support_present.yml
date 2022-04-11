@@ -1,5 +1,6 @@
 ---
 - name: NFS support is present
+  become: yes
   ansible.builtin.package:
     name: nfs-common
     state: present
