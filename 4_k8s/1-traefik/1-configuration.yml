@@ -1,7 +1,0 @@
-apiVersion: traefik.containo.us/v1alpha1
-kind: TLSOption
-metadata:
-  name: default
-  namespace: kube-system
-spec:
-  minVersion: VersionTLS12

@@ -6,6 +6,9 @@ metadata:
   namespace: kube-system
 spec:
   valuesContent: |-
+
+    ####################################################################
+    # Enable debug logs
     logs:
       general:
         # By default, the logs use a text format (common), but you can
@@ -14,25 +17,54 @@ spec:
         # By default, the level is set to ERROR. Alternative logging levels are DEBUG, PANIC, FATAL, ERROR, WARN, and INFO.
         level: DEBUG
 
+    ####################################################################
+    # Configure SSL redirect (WIP)
     ports:
       web:
         redirectTo: websecure
+    ssl:
+      enabled: true
+      permanentRedirect: true
 
+    ####################################################################
+    # Enable persistence
+    #
+    # Enable persistence using Persistent Volume Claims
+    # ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+    # After the pvc has been mounted, add the configs into traefik by using the `additionalArguments` list below, eg:
     # additionalArguments:
-      # - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
-      # - --certificatesresolvers.letsencrypt.acme.email=pabloscolpino@gmail.com
-      # - --certificatesresolvers.letsencrypt.acme.storage=/data/letsencrypt.json
-              # permanentRedirect: true
+    # - "--certificatesresolvers.le.acme.storage=/data/acme.json"
+    # It will persist TLS certificates.
+    persistence:
+      enabled: true
+      name: data
+      existingClaim: "traefik-persistence"
+      accessMode: ReadWriteOnce
+      size: 128Mi
+      storageClass: "local-path"
+      path: /data
+      annotations: {}
+      # subPath: "" # only mount a subpath of the Volume into the pod
 
-    # env:
-      # - name: DNSMADEEASY_API_KEY
-        # value: 86018377
-      # - name: DNSMADEEASY_API_SECRET
-        # value: sS6QUaxm7BSSBZ
+    ####################################################################
+    # Configure Certificate Provider (WIP)
+    env:
+      - name: CF_API_EMAIL
+        value: email@some.com
+      - name: CF_API_KEY
+        value: the-key-123asdf
+
+    additionalArguments:
+      - --certificatesresolvers.letsencrypt.acme.email=pabloscolpino@gmail.com
+      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+      # - --certificatesresolvers.letsencrypt.acme.dnsChallenge=true
+      # - --certificatesresolvers.letsencrypt.acme.dnsChallenge.provider=cloudflare
+      # - --certificatesresolvers.letsencrypt.acme.dnsChallenge.resolvers=["1.1.1.1:53", "8.8.8.8:53"]
+      - --certificatesresolvers.letsencrypt.acme.storage=/data/letsencrypt.json
 
     # certificatesResolvers:
       # letsencrypt:
         # acme:
           # dnsChallenge:
-            # provider: dnsmadeeasy
+            # provider: cloudflare
             # delayBeforeCheck: 0
