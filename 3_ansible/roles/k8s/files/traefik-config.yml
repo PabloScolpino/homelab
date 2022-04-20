@@ -7,6 +7,9 @@ metadata:
 spec:
   valuesContent: |-
 
+    # Check options for configuration at:
+    # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
+
     ####################################################################
     # Enable debug logs
     logs:
@@ -47,7 +50,7 @@ spec:
       # subPath: "" # only mount a subpath of the Volume into the pod
 
     ####################################################################
-    # Configure Certificate Provider (WIP)
+    # Environment variables for DNS Challenge + cloudflare
     env:
       - name: CF_API_EMAIL
         value: email@some.com
@@ -56,15 +59,12 @@ spec:
 
     additionalArguments:
       - --certificatesresolvers.letsencrypt.acme.email=pabloscolpino@gmail.com
+      - --certificatesresolvers.letsencrypt.acme.storage=/data/letsencrypt_tls.json
+      # Test env
+      # - --certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      # TLS Challenge
       - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
-      # - --certificatesresolvers.letsencrypt.acme.dnsChallenge=true
-      # - --certificatesresolvers.letsencrypt.acme.dnsChallenge.provider=cloudflare
-      # - --certificatesresolvers.letsencrypt.acme.dnsChallenge.resolvers=["1.1.1.1:53", "8.8.8.8:53"]
-      - --certificatesresolvers.letsencrypt.acme.storage=/data/letsencrypt.json
-
-    # certificatesResolvers:
-      # letsencrypt:
-        # acme:
-          # dnsChallenge:
-            # provider: cloudflare
-            # delayBeforeCheck: 0
+      # DNS Challenge
+      # - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare
+      # - --certificatesresolvers.letsencrypt.acme.dnschallenge.delaybeforecheck=0
+      # - --certificatesResolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53
