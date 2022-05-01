@@ -36,6 +36,44 @@ resource "proxmox_vm_qemu" "unifi_vm" {
   ipconfig0    = "ip=10.0.0.20/24,gw=${var.gateway}"
 }
 
+resource "proxmox_vm_qemu" "observium" {
+  target_node = var.target_node
+  clone       = var.template_name
+  os_type     = "cloud-init"
+
+  onboot = true
+  boot   = "c"
+  agent  = 1
+  bios    = "ovmf"
+
+  ciuser       = var.ciuser
+  sshkeys      = var.sshkeys
+  nameserver   = var.nameserver
+  searchdomain = var.searchdomain
+
+  vmid        = 110
+  name        = "observium.ar.olumpos.local"
+  desc        = "Observium VM"
+
+  cores   = 4
+  balloon = 1024
+  memory  = 4096
+
+  disk {
+    size    = "60620M"
+    type    = "scsi"
+    storage = var.disk_storage
+    ssd     = 1
+  }
+
+  network {
+    model  = "virtio"
+    bridge = "vmbr0"
+  }
+
+  ipconfig0    = "ip=10.0.0.10/24,gw=${var.gateway}"
+}
+
 resource "proxmox_vm_qemu" "k8s" {
   target_node = var.target_node
   clone       = var.template_name
@@ -131,9 +169,10 @@ resource "proxmox_vm_qemu" "plex" {
   name        = "plex.ar.olumpos.local"
   desc        = "Plex VM"
 
-  cores   = 4
+  cpu     = "host,hidden=1"
+  cores   = 6
   balloon = 2048
-  memory  = 8192
+  memory  = 6144
 
   disk {
     size    = "29900M"
