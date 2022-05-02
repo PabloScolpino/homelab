@@ -28,5 +28,3 @@ spec:
     services:
     - name: radar
       port: 7878
-  tls:
-    certResolver: letsencrypt
