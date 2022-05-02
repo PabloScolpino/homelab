@@ -63,3 +63,33 @@ spec:
   - name: web
     port: 7878
     protocol: TCP
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: media
+  name: radar
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`radar.ar.olumpos.net`)
+    kind: Rule
+    services:
+    - name: radar
+      port: 7878
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: media
+  name: radar-tls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`radar.ar.olumpos.net`)
+    kind: Rule
+    services:
+    - name: radar
+      port: 7878
