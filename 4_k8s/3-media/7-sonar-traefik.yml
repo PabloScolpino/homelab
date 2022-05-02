@@ -28,5 +28,3 @@ spec:
     services:
     - name: sonar
       port: 8989
-  tls:
-    certResolver: letsencrypt

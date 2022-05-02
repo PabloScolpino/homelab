@@ -1,31 +1,31 @@
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  namespace: media
-  name: plex-config
-spec:
-  volumeName: plex-config
-  accessModes:
-    - ReadWriteMany
-  storageClassName: iscsi
-  resources:
-    requests:
-      storage: 1Mi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  namespace: media
-  name: plex-transcode
-spec:
-  volumeName: plex-transcode
-  accessModes:
-    - ReadWriteMany
-  storageClassName: iscsi
-  resources:
-    requests:
-      storage: 1Mi
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+  # namespace: media
+  # name: plex-config
+# spec:
+  # volumeName: plex-config
+  # accessModes:
+    # - ReadWriteMany
+  # storageClassName: iscsi
+  # resources:
+    # requests:
+      # storage: 1Mi
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+  # namespace: media
+  # name: plex-transcode
+# spec:
+  # volumeName: plex-transcode
+  # accessModes:
+    # - ReadWriteMany
+  # storageClassName: iscsi
+  # resources:
+    # requests:
+      # storage: 1Mi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -96,20 +96,20 @@ spec:
   resources:
     requests:
       storage: 1Mi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  namespace: media
-  name: librarian-config
-spec:
-  volumeName: librarian-config
-  accessModes:
-    - ReadWriteMany
-  storageClassName: iscsi
-  resources:
-    requests:
-      storage: 1Mi
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+  # namespace: media
+  # name: librarian-config
+# spec:
+  # volumeName: librarian-config
+  # accessModes:
+    # - ReadWriteMany
+  # storageClassName: iscsi
+  # resources:
+    # requests:
+      # storage: 1Mi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -152,17 +152,17 @@ spec:
   resources:
     requests:
       storage: 1Mi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  namespace: media
-  name: nas-books
-spec:
-  volumeName: nas-books
-  accessModes:
-    - ReadWriteMany
-  storageClassName: nfs
-  resources:
-    requests:
-      storage: 1Mi
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+  # namespace: media
+  # name: nas-books
+# spec:
+  # volumeName: nas-books
+  # accessModes:
+    # - ReadWriteMany
+  # storageClassName: nfs
+  # resources:
+    # requests:
+      # storage: 1Mi

@@ -1,33 +1,33 @@
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: plex-config
-spec:
-  capacity:
-    storage: 20Gi
-  accessModes:
-    - ReadWriteMany
-  iscsi:
-    iqn: iqn.2005-10.org.freenas.ctl:plex-config
-    lun: 0
-    targetPortal: nas.olumpos.net
-  storageClassName: iscsi
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: plex-transcode
-spec:
-  capacity:
-    storage: 100Gi
-  accessModes:
-    - ReadWriteMany
-  iscsi:
-    iqn: iqn.2005-10.org.freenas.ctl:plex-transcode
-    lun: 0
-    targetPortal: nas.olumpos.net
-  storageClassName: iscsi
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+  # name: plex-config
+# spec:
+  # capacity:
+    # storage: 20Gi
+  # accessModes:
+    # - ReadWriteMany
+  # iscsi:
+    # iqn: iqn.2005-10.org.freenas.ctl:plex-config
+    # lun: 0
+    # targetPortal: nas.ar.olumpos.lan
+  # storageClassName: iscsi
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+  # name: plex-transcode
+# spec:
+  # capacity:
+    # storage: 100Gi
+  # accessModes:
+    # - ReadWriteMany
+  # iscsi:
+    # iqn: iqn.2005-10.org.freenas.ctl:plex-transcode
+    # lun: 0
+    # targetPortal: nas.ar.olumpos.lan
+  # storageClassName: iscsi
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -39,7 +39,7 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: nas.olumpos.net
+    server: nas.ar.olumpos.lan
     path: "/mnt/first-pool/volumes/deluge/config"
   storageClassName: nfs
 ---
@@ -55,7 +55,7 @@ spec:
   iscsi:
     iqn: iqn.2005-10.org.freenas.ctl:radar
     lun: 0
-    targetPortal: nas.olumpos.net
+    targetPortal: nas.ar.olumpos.lan
   storageClassName: iscsi
 ---
 apiVersion: v1
@@ -70,7 +70,7 @@ spec:
   iscsi:
     iqn: iqn.2005-10.org.freenas.ctl:sonar
     lun: 0
-    targetPortal: nas.olumpos.net
+    targetPortal: nas.ar.olumpos.lan
   storageClassName: iscsi
 ---
 apiVersion: v1
@@ -85,7 +85,7 @@ spec:
   iscsi:
     iqn: iqn.2005-10.org.freenas.ctl:bazar
     lun: 0
-    targetPortal: nas.olumpos.net
+    targetPortal: nas.ar.olumpos.lan
   storageClassName: iscsi
 ---
 apiVersion: v1
@@ -100,24 +100,24 @@ spec:
   iscsi:
     iqn: iqn.2005-10.org.freenas.ctl:readar
     lun: 0
-    targetPortal: nas.olumpos.net
+    targetPortal: nas.ar.olumpos.lan
   storageClassName: iscsi
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: librarian-config
-spec:
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteMany
-  iscsi:
-    iqn: iqn.2005-10.org.freenas.ctl:librarian
-    lun: 0
-    targetPortal: nas.olumpos.net
-  storageClassName: iscsi
----
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+  # name: librarian-config
+# spec:
+  # capacity:
+    # storage: 10Gi
+  # accessModes:
+    # - ReadWriteMany
+  # iscsi:
+    # iqn: iqn.2005-10.org.freenas.ctl:librarian
+    # lun: 0
+    # targetPortal: nas.ar.olumpos.lan
+  # storageClassName: iscsi
+# ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -128,7 +128,7 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: nas.olumpos.net
+    server: nas.ar.olumpos.lan
     path: "/mnt/first-pool/archivos-red/plex/Movies"
   storageClassName: nfs
 ---
@@ -142,23 +142,23 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: nas.olumpos.net
+    server: nas.ar.olumpos.lan
     path: "/mnt/first-pool/archivos-red/plex/Series"
   storageClassName: nfs
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: nas-books
-spec:
-  capacity:
-    storage: 2000Gi
-  accessModes:
-    - ReadWriteMany
-  nfs:
-    server: nas.olumpos.net
-    path: "/mnt/first-pool/archivos-red/books"
-  storageClassName: nfs
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+  # name: nas-books
+# spec:
+  # capacity:
+    # storage: 2000Gi
+  # accessModes:
+    # - ReadWriteMany
+  # nfs:
+    # server: nas.ar.olumpos.lan
+    # path: "/mnt/first-pool/archivos-red/books"
+  # storageClassName: nfs
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -170,6 +170,6 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: nas.olumpos.net
+    server: nas.ar.olumpos.lan
     path: "/mnt/first-pool/archivos-red/downloads"
   storageClassName: nfs

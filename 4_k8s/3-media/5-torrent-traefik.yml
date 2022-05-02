@@ -1,4 +1,3 @@
----
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
@@ -8,11 +7,11 @@ spec:
   entryPoints:
     - web
   routes:
-  - match: Host(`torrent.ar.olumpos.net`)
-    kind: Rule
-    services:
-    - name: deluge
-      port: 8112
+    - match: Host(`torrent.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: deluge
+          port: 8112
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -23,10 +22,8 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: Host(`torrent.ar.olumpos.net`)
-    kind: Rule
-    services:
-    - name: deluge
-      port: 8112
-  tls:
-    certResolver: letsencrypt
+    - match: Host(`torrent.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: deluge
+          port: 8112
