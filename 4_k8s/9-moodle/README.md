@@ -9,12 +9,12 @@ https://github.com/bitnami/charts/tree/master/bitnami/moodle
 
     helm repo add bitnami https://charts.bitnami.com/bitnami
     kubectl --
-    helm install kulturnetzd -f values.yaml bitnami/moodle --namespace kulturnetzd
+    helm install kulturnetzd -f values.yml bitnami/moodle --namespace kulturnetzd
 
 
 # Install Output
 NAME: kulturnetzd
-LAST DEPLOYED: Sat Mar  5 21:29:13 2022
+LAST DEPLOYED: Mon May  2 23:21:40 2022
 NAMESPACE: kulturnetzd
 STATUS: deployed
 REVISION: 1
@@ -36,4 +36,3 @@ APP VERSION: 3.11.5** Please be patient while the chart is being deployed **
 
   echo Username: admin
   echo Password: $(kubectl get secret --namespace kulturnetzd kulturnetzd-moodle -o jsonpath="{.data.moodle-password}" | base64 --decode)
-

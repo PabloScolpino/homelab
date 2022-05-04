@@ -1,52 +1,52 @@
-moodleSiteName: "Kulturnetz Deutsch"
-## @param moodleUsername User of the application
-## ref: https://github.com/bitnami/bitnami-docker-moodle#configuration
-##
+---
+moodleSiteName: Kulturnetz Deutsch
 moodleUsername: admin
-## @param moodlePassword Application password
-## Defaults to a random 10-character alphanumeric string if not set
-## ref: https://github.com/bitnami/bitnami-docker-moodle#configuration
-##
-## @param moodleEmail Admin email
-## ref: https://github.com/bitnami/bitnami-docker-moodle#configuration
-##
-moodleEmail: pabloscolpino@gmail.com
+moodleEmail: pablo.scolpino@gmail.com
 allowEmptyPassword: false
 
+image:
+  debug: true
+
 extraEnvVars:
-  PHP_UPLOAD_MAX_FILESIZE: 200M
-
-# updateStrategy:
-  # type: RollingUpdate
-
-## Enable persistence using Persistent Volume Claims
-## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+  - name: PHP_UPLOAD_MAX_FILESIZE
+    value: 200M
+## SMTP mail delivery configuration
+## ref: https://github.com/bitnami/bitnami-docker-moodle/#smtp-configuration
+## @param smtpHost SMTP host
+## @param smtpPort SMTP port
+## @param smtpUser SMTP user
+## @param smtpPassword SMTP password
+## @param smtpProtocol SMTP Protocol (options: ssl,tls, nil)
 ##
-persistence:
-  ## @param persistence.enabled Enable persistence using PVC
-  ##
+# # # # # # # # # # # #
+# sendgrid
+smtpHost: "smtp.sendgrid.net"
+smtpPort: "465"
+smtpUser: "apikey"
+smtpPassword: "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"
+smtpProtocol: "ssl"
+# # # # # # # # # # # #
+
+## @param containerPorts [object] Container ports
+##
+# containerPorts:
+  # http: 8080
+  # https: 8443
+podSecurityContext:
   enabled: true
-  ## @param persistence.storageClass PVC Storage Class for Moodle
-  ## If defined, storageClassName: <storageClass>
-  ## If set to "-", storageClassName: "", which disables dynamic provisioning
-  ## If undefined (the default) or set to null, no storageClassName spec is
-  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
-  ##   GKE, AWS & OpenStack)
-  ##
-  storageClass: "iscsi"
-  ## @param persistence.accessMode PVC Access Mode for Moodle
-  ## Requires persistence.enabled: true
-  ## If defined, PVC must be created manually before volume will be bound
-  ##
-  accessMode: ReadWriteOnce
-  ## @param persistence.size PVC Storage Request for Moodle
-  ##
-  size: 50Gi
-  ## @param persistence.existingClaim An Existing PVC name
-  ## Requires persistence.enabled: true
-  ## If defined, PVC must be created manually before volume will be bound
-  ##
-  existingClaim: "kulturnetzd-files"
+  fsGroup: 1006
+
+containerSecurityContext:
+  enabled: true
+  runAsUser: 1003
+  runAsNonRoot: true
+
+persistence:
+  enabled: true
+  storageClass: nfs
+  accessMode: ReadWriteMany
+  size: 200Gi
+  existingClaim: kulturnetzd-files
 
 ## Kubernetes configuration
 ## For minikube, set this to NodePort, for ingress ClusterIP, elsewhere use LoadBalancer
@@ -55,57 +55,16 @@ service:
   ## @param service.type Service type
   ##
   type: NodePort
-  ## @param service.port Service HTTP port
+  # type: ClusterIP
+  ## @param service.ports.http Service HTTP port
+  ## @param service.ports.https Service HTTPS port
   ##
-  port: 80
-  ## @param service.httpsPort Service HTTPS port
-  ##
-  httpsPort: 443
-  ## @param service.clusterIP Service Cluster IP
-  ##
-  # clusterIP: ""
-  ## @param service.loadBalancerSourceRanges Service load balancer source ranges
-  ## Control hosts connecting to "LoadBalancer" only
-  ## loadBalancerSourceRanges:
-  ##   - 0.0.0.0/0
-  ##
-  # loadBalancerSourceRanges: []
-  ## @param service.loadBalancerIP loadBalancerIP for the Moodle&trade; Service (optional, cloud specific)
-  ## ref: http://kubernetes.io/docs/user-guide/services/#type-loadbalancer
-  ##
-  # loadBalancerIP: ""
-  ## @param service.nodePorts.http Kubernetes HTTP node port
-  ## @param service.nodePorts.https Kubernetes HTTPS node port
-  ## nodePorts:
-  ##   http: <to set explicitly, choose port between 30000-32767>
-  ##   https: <to set explicitly, choose port between 30000-32767>
-  ##
-  nodePorts:
-    http: ""
-    https: ""
-  ## @param service.externalTrafficPolicy Enable client source IP preservation
-  ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
-  ##
-  # externalTrafficPolicy: Cluster
-  #
-## Configure the ingress resource that allows you to access the
-## Moodle&trade; installation. Set up the URL
-## ref: http://kubernetes.io/docs/user-guide/ingress/
-##
-ingress:
-  enabled: false
+  # ports:
+    # http: 8080
+    # https: 8443
 
-
-## MariaDB chart configuration
-## https://github.com/bitnami/charts/blob/master/bitnami/mariadb/values.yaml
-##
 mariadb:
-  ## @param mariadb.enabled Whether to deploy a mariadb server to satisfy the applications database requirements
-  ## To use an external database set this to false and configure the externalDatabase parameters
-  ##
   enabled: true
-  ## @param mariadb.architecture MariaDB architecture (`standalone` or `replication`)
-  ##
   architecture: standalone
   ## MariaDB Authentication parameters
   ##
@@ -113,7 +72,7 @@ mariadb:
     ## @param mariadb.auth.rootPassword Password for the MariaDB `root` user
     ## ref: https://github.com/bitnami/bitnami-docker-mariadb#setting-the-root-password-on-first-run
     ##
-    # rootPassword: ""
+    rootPassword: vytGol8WLV
     ## @param mariadb.auth.database Database name to create
     ## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#creating-a-database-on-first-run
     ##
@@ -124,34 +83,11 @@ mariadb:
     username: bn_moodle
     ## @param mariadb.auth.password Password for the database
     ##
-    # password: ""
+    password: TOOUwDfvbY
   primary:
-    ## Enable persistence using Persistent Volume Claims
-    ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
-    ##
     persistence:
-      ## @param mariadb.primary.persistence.enabled Enable database persistence using PVC
-      ##
       enabled: true
-      ## @param mariadb.primary.persistence.storageClass MariaDB primary persistent volume storage Class
-      ## If defined, storageClassName: <storageClass>
-      ## If set to "-", storageClassName: "", which disables dynamic provisioning
-      ## If undefined (the default) or set to null, no storageClassName spec is
-      ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
-      ##   GKE, AWS & OpenStack)
-      ##
-      # storageClass: "iscsi"
       storageClass: "local-storage"
-      ## @param mariadb.primary.persistence.accessModes PVC Access Modes for Moodle&trade; volume
-      ##
       accessModes:
         - ReadWriteOnce
-      ## @param mariadb.primary.persistence.size Database Persistent Volume Size
-      ##
-      size: 5Gi
-      ## @param mariadb.primary.persistence.hostPath Set path in case you want to use local host path volumes (not recommended in production)
-      ##
-      # hostPath: ""
-      ## @param mariadb.primary.persistence.existingClaim Name of an existing `PersistentVolumeClaim` for MariaDB primary replicas
-      ##
-      existingClaim: "kulturnetzd-db"
+      existingClaim: kulturnetzd-db

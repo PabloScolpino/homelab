@@ -5,11 +5,10 @@ metadata:
   name: kulturnetzd-files
 spec:
   capacity:
-    storage: 50Gi
+    storage: 200Gi
   accessModes:
-    - ReadWriteOnce
-  iscsi:
-    iqn: iqn.2005-10.org.freenas.ctl:kulturnetzd-files
-    lun: 0
-    targetPortal: nas.olumpos.net
-  storageClassName: iscsi
+    - ReadWriteMany
+  nfs:
+    server: nas.ar.olumpos.lan
+    path: "/mnt/first-pool/volumes/kulturnetzd-files"
+  storageClassName: nfs

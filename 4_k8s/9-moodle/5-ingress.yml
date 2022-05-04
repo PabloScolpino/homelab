@@ -10,9 +10,6 @@ spec:
   routes:
   - match: Host(`kulturnetzd.ar.olumpos.net`)
     kind: Rule
-    # middlewares:
-      # - name: redirect-to-https
-        # namespace: default
     services:
     - name: kulturnetzd-moodle
       port: 80
@@ -31,5 +28,3 @@ spec:
     services:
     - name: kulturnetzd-moodle
       port: 80
-  tls:
-    certResolver: letsencrypt
