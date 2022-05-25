@@ -112,44 +112,6 @@ resource "proxmox_vm_qemu" "k8s" {
   ipconfig0    = "ip=10.0.0.50/24,gw=${var.gateway}"
 }
 
-resource "proxmox_vm_qemu" "kulturnetzd" {
-  target_node = var.target_node
-  clone       = var.template_name
-  os_type     = "cloud-init"
-
-  onboot = true
-  boot   = "c"
-  agent  = 1
-  bios    = "ovmf"
-
-  ciuser       = var.ciuser
-  sshkeys      = var.sshkeys
-  nameserver   = var.nameserver
-  searchdomain = var.searchdomain
-
-  vmid        = 155
-  name        = "kulturnetzd.ar.olumpos.local"
-  desc        = "Kulturnetzd Moodle VM"
-
-  cores   = 2
-  balloon = 1024
-  memory  = 4096
-
-  disk {
-    size    = "60620M"
-    type    = "scsi"
-    storage = var.disk_storage
-    ssd     = 1
-  }
-
-  network {
-    model  = "virtio"
-    bridge = "vmbr0"
-  }
-
-  ipconfig0    = "ip=10.0.0.55/24,gw=${var.gateway}"
-}
-
 resource "proxmox_vm_qemu" "plex" {
   target_node = var.target_node
   clone       = var.template_name
