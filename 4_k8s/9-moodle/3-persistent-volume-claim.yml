@@ -1,3 +1,17 @@
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+  # namespace: kulturnetzd
+  # name: kulturnetzd-files
+# spec:
+  # volumeName: kulturnetzd-files
+  # accessModes:
+    # - ReadWriteMany
+  # storageClassName: nfs
+  # resources:
+    # requests:
+      # storage: 10Mi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -5,13 +19,12 @@ metadata:
   namespace: kulturnetzd
   name: kulturnetzd-files
 spec:
-  volumeName: kulturnetzd-files
   accessModes:
-    - ReadWriteMany
-  storageClassName: nfs
+    - ReadWriteOnce
+  storageClassName: local-path
   resources:
     requests:
-      storage: 10Mi
+      storage: 50Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
