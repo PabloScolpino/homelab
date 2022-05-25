@@ -87,21 +87,21 @@ spec:
     lun: 0
     targetPortal: nas.ar.olumpos.lan
   storageClassName: iscsi
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: readar-config
-spec:
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteMany
-  iscsi:
-    iqn: iqn.2005-10.org.freenas.ctl:readar
-    lun: 0
-    targetPortal: nas.ar.olumpos.lan
-  storageClassName: iscsi
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+  # name: readar-config
+# spec:
+  # capacity:
+    # storage: 10Gi
+  # accessModes:
+    # - ReadWriteMany
+  # iscsi:
+    # iqn: iqn.2005-10.org.freenas.ctl:readar
+    # lun: 0
+    # targetPortal: nas.ar.olumpos.lan
+  # storageClassName: iscsi
 # ---
 # apiVersion: v1
 # kind: PersistentVolume
@@ -117,7 +117,7 @@ spec:
     # lun: 0
     # targetPortal: nas.ar.olumpos.lan
   # storageClassName: iscsi
-# ---
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
