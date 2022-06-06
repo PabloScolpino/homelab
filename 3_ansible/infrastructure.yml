@@ -6,6 +6,13 @@
     - terminal
     - unifi_controller
 
+- hosts: k8s
+  roles:
+    - ansible_dependencies
+    - user_in_sudoers
+    - terminal
+    - k8s
+
 - hosts: plex
   roles:
     - ansible_dependencies
@@ -13,16 +20,10 @@
     - terminal
     - plex
 
-- hosts: kulturnetzd
+- hosts: minecraft
   roles:
     - ansible_dependencies
     - user_in_sudoers
     - terminal
-    - moodle
-
-- hosts: k8s
-  roles:
-    - ansible_dependencies
-    - user_in_sudoers
-    - terminal
-    - k8s
+    - minecraft_dependencies
+    - minecraft

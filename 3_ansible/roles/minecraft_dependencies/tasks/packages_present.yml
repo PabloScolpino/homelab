@@ -1,0 +1,9 @@
+---
+- name: packages present
+  become: yes
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - acl
+    - openjdk-17-jre-headless
