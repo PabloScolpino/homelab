@@ -1,0 +1,6 @@
+---
+dependencies:
+  - role: nolte.minecraft
+    become: yes
+    vars:
+      minecraft_whitelist: []

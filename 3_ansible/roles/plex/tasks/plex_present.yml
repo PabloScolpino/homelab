@@ -1,3 +1,4 @@
+---
 - name: Plex official apt repository is present
   become: yes
   ansible.builtin.apt_repository:
