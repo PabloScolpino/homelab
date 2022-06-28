@@ -40,7 +40,7 @@ open http://localhost:9000/dashboard/
 ```
 
 # Pi Remote Node
-    ansible-playbook ./pi.yml -i ./inventory/all.yml --limit pi --ask-become-pass
+    ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit pi --ask-become-pass
 
 # Dev machine setup
 

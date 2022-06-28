@@ -3,4 +3,7 @@ dependencies:
   - role: nolte.minecraft
     become: yes
     vars:
-      minecraft_whitelist: []
+      minecraft_whitelist: ["Qplusplus"]
+      minecraft_eula_accept: true
+      minecraft_initial_memory: "1024M"
+      minecraft_max_memory: "4096M"
