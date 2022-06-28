@@ -2,3 +2,4 @@
 packages:
   debian:
     - python3-apt
+    - git

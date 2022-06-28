@@ -27,3 +27,10 @@
     - terminal
     - minecraft_dependencies
     - minecraft
+
+- hosts: pi
+  roles:
+    - ansible_dependencies
+    - user_in_sudoers
+    - terminal
+    - docker-node

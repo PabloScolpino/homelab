@@ -1,6 +1,24 @@
+- name: print out hosts architectures
+  ansible.builtin.debug:
+    var: ansible_architecture
+
 - name: Docker is present
+  when: ansible_architecture == "x86_64"
   include_role:
     name: geerlingguy.docker
+  vars:
+    ansible_become: yes
+    docker_users: [quantum]
+
+- name: Docker is present
+  when: ansible_architecture == "aarch64"
+  include_role:
+    name: geerlingguy.docker
+  vars:
+    ansible_become: yes
+    docker_apt_arch: arm64
+    docker_compose_arch: arm64
+    docker_users: [quantum]
 
 - name: User can use docker
   become: true
