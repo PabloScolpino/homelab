@@ -17,8 +17,10 @@
   vars:
     ansible_become: yes
     docker_apt_arch: arm64
-    docker_compose_arch: arm64
+    docker_compose_arch: aarch64
+    docker_compose_version: v2.6.1
     docker_users: [quantum]
+  # https://github.com/docker/compose/releases/download/v2.6.1/docker-compose-linux-aarch64
 
 - name: User can use docker
   become: true
