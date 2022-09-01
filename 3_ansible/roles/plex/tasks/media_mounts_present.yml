@@ -21,6 +21,6 @@
     src: "{{ item.source }}"
     path: "{{ item.target }}"
     fstype: cifs
-    opts: 'username={{ username }},password={{ password }}'
+    opts: 'username={{ username }},password={{ password }},iocharset=utf8'
     state: mounted
   loop: "{{ media_shares }}"
