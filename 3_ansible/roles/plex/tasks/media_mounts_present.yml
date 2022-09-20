@@ -2,8 +2,11 @@
 - name: CIFS Utilities present
   become: yes
   ansible.builtin.package:
-    name: cifs-utils
+    name: "{{ item }}"
     state: present
+  loop:
+    - cifs-utils
+    # - linux-modules-extra-$(uname -r)
 
 - name: Mount points exist
   become: yes
