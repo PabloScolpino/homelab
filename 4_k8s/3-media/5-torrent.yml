@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: deluge
-        image: ghcr.io/linuxserver/deluge
+        image: ghcr.io/linuxserver/deluge:2.0.5
         ports:
           - name: web
             containerPort: 8112
