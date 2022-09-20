@@ -2,8 +2,8 @@
 username: pmedia
 password: QU..cJc*UVry8Wt9ftvV
 media_shares:
-  - source: \\10.0.0.5\plex\Movies
+  - source: \\10.0.0.5\media\Movies
     target: /mnt/movies
 
-  - source: \\10.0.0.5\plex\Series
+  - source: \\10.0.0.5\media\Series
     target: /mnt/series
