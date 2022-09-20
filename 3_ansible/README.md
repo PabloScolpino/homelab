@@ -20,10 +20,13 @@
     ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --ask-become-pass
 
 ## Pi Remote Node
-    ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit pi --ask-become-pass
+    ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit pi
 
 ## Plex
-    ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit plex --ask-become-pass
+    ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit plex
+
+## K8s
+    ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit k8s
 
 ## Development setup
 
