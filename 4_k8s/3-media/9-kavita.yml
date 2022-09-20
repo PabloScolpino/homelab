@@ -1,0 +1,90 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: media
+  name: kavita
+  labels:
+    app: kavita
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kavita
+  template:
+    metadata:
+      labels:
+        app: kavita
+    spec:
+      containers:
+      - name: kavita
+        image: kizaing/kavita:latest
+        ports:
+          - name: web
+            containerPort: 5000
+            protocol: TCP
+        volumeMounts:
+          - name: config
+            mountPath: "/config"
+          - name: books
+            mountPath: "/books"
+          - name: comics
+            mountPath: "/comics"
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: kavita-config
+      - name: books
+        persistentVolumeClaim:
+          claimName: nas-books
+      - name: comics
+        persistentVolumeClaim:
+          claimName: nas-comics
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: media
+  name: kavita
+  labels:
+    app: kavita
+spec:
+  type: NodePort
+  selector:
+    app: kavita
+  ports:
+  - name: web
+    port: 5000
+    protocol: TCP
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: media
+  name: kavita
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`kavita.ar.olumpos.net`)
+    kind: Rule
+    services:
+    - name: kavita
+      port: 5000
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: media
+  name: kavita-tls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`kavita.ar.olumpos.net`)
+    kind: Rule
+    services:
+    - name: kavita
+      port: 5000
+  tls:
+    certResolver: letsencrypt

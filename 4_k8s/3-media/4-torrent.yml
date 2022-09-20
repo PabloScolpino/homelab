@@ -70,3 +70,33 @@ spec:
   - name: torrentudp
     port: 6881
     protocol: UDP
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: media
+  name: deluge
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`torrent.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: deluge
+          port: 8112
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: media
+  name: deluge-tls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`torrent.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: deluge
+          port: 8112
