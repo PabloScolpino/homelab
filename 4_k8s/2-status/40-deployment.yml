@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: smokeping
-        image: ghcr.io/linuxserver/smokeping
+        image: ghcr.io/linuxserver/smokeping:2.7.3-r5-ls167
         ports:
           - name: web
             containerPort: 80
