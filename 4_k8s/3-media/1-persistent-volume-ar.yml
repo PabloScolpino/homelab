@@ -22,10 +22,11 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteMany
-  nfs:
-    server: nas.ar.olumpos.lan
-    path: "/mnt/first-pool/volumes/kavita/config"
-  storageClassName: nfs
+  iscsi:
+    iqn: iqn.2005-10.org.freenas.ctl:kavita
+    lun: 0
+    targetPortal: nas.ar.olumpos.lan
+  storageClassName: iscsi
 ---
 apiVersion: v1
 kind: PersistentVolume
