@@ -54,34 +54,20 @@ spec:
   resources:
     requests:
       storage: 1Mi
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-  # namespace: media
-  # name: readar-config
-# spec:
-  # volumeName: readar-config
-  # accessModes:
-    # - ReadWriteMany
-  # storageClassName: iscsi
-  # resources:
-    # requests:
-      # storage: 1Mi
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-  # namespace: media
-  # name: librarian-config
-# spec:
-  # volumeName: librarian-config
-  # accessModes:
-    # - ReadWriteMany
-  # storageClassName: iscsi
-  # resources:
-    # requests:
-      # storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: kavita-config
+spec:
+  volumeName: kavita-config
+  accessModes:
+    - ReadWriteMany
+  storageClassName: iscsi
+  resources:
+    requests:
+      storage: 1Mi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -124,17 +110,31 @@ spec:
   resources:
     requests:
       storage: 1Mi
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-  # namespace: media
-  # name: nas-books
-# spec:
-  # volumeName: nas-books
-  # accessModes:
-    # - ReadWriteMany
-  # storageClassName: nfs
-  # resources:
-    # requests:
-      # storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: nas-books
+spec:
+  volumeName: nas-books
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: nas-comics
+spec:
+  volumeName: nas-comics
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs
+  resources:
+    requests:
+      storage: 1Mi

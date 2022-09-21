@@ -25,7 +25,7 @@ spec:
             protocol: TCP
         volumeMounts:
           - name: config
-            mountPath: "/config"
+            mountPath: "/kavita/config"
           - name: books
             mountPath: "/books"
           - name: comics
