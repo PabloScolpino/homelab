@@ -31,6 +31,21 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  name: komga-config
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  iscsi:
+    iqn: iqn.2005-10.org.freenas.ctl:komga
+    lun: 0
+    targetPortal: nas.ar.olumpos.lan
+  storageClassName: iscsi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
   name: radar-config
 spec:
   capacity:
