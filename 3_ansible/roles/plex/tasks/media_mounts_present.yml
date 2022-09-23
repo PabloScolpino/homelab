@@ -6,7 +6,7 @@
     state: present
   loop:
     - cifs-utils
-    # - linux-modules-extra-$(uname -r)
+    - linux-modules-extra-{{ ansible_kernel }}
 
 - name: Mount points exist
   become: yes
@@ -24,6 +24,6 @@
     src: "{{ item.source }}"
     path: "{{ item.target }}"
     fstype: cifs
-    opts: 'username={{ username }},password={{ password }},iocharset=utf8'
+    opts: 'vers=3.0,username={{ username }},password={{ password }},iocharset=utf8'
     state: mounted
   loop: "{{ media_shares }}"

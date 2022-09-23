@@ -15,4 +15,4 @@
   become: yes
   ansible.builtin.package:
     name: plexmediaserver
-    state: present
+    state: latest
