@@ -73,6 +73,20 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   namespace: media
+  name: komga-config
+spec:
+  volumeName: komga-config
+  accessModes:
+    - ReadWriteMany
+  storageClassName: iscsi
+  resources:
+    requests:
+      storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
   name: nas-downloads
 spec:
   volumeName: nas-downloads
