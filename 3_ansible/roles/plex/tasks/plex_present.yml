@@ -1,18 +1,18 @@
 ---
 - name: Plex official apt repository is present
-  become: yes
+  become: true
   ansible.builtin.apt_repository:
     repo: deb https://downloads.plex.tv/repo/deb public main
     state: present
 
 - name: Plex repo sign key is present
-  become: yes
+  become: true
   ansible.builtin.apt_key:
     url: https://downloads.plex.tv/plex-keys/PlexSign.key
     state: present
 
 - name: Plex server is present
-  become: yes
+  become: true
   ansible.builtin.package:
     name: plexmediaserver
     state: latest

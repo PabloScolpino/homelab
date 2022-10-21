@@ -1,6 +1,6 @@
 ---
 dependencies:
   - role: xanmanning.k3s
-    become: yes
+    become: true
     vars:
       k3s_become: true
