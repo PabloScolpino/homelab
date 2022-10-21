@@ -1,6 +1,6 @@
 ---
 - name: CIFS Utilities present
-  become: yes
+  become: true
   ansible.builtin.package:
     name: "{{ item }}"
     state: present
@@ -9,7 +9,7 @@
     - linux-modules-extra-{{ ansible_kernel }}
 
 - name: Mount points exist
-  become: yes
+  become: true
   ansible.builtin.file:
     path: "{{ item.target }}"
     state: directory
@@ -19,7 +19,7 @@
   loop: "{{ media_shares }}"
 
 - name: Network shares mounted
-  become: yes
+  become: true
   ansible.posix.mount:
     src: "{{ item.source }}"
     path: "{{ item.target }}"

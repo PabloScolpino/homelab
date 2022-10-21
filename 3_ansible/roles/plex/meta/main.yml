@@ -1,2 +1,6 @@
 ---
-dependencies: []
+dependencies:
+  - role: nvidia.nvidia_driver
+    become: true
+    vars:
+      nvidia_driver_branch: "510"
