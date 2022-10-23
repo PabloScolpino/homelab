@@ -8,11 +8,11 @@ spec:
   entryPoints:
     - web
   routes:
-  - match: Host(`kulturnetzd.ar.olumpos.net`)
-    kind: Rule
-    services:
-    - name: kulturnetzd-moodle
-      port: 80
+    - match: Host(`kulturnetzd.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: kulturnetzd-moodle
+          port: 80
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -23,8 +23,38 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: Host(`kulturnetzd.ar.olumpos.net`)
-    kind: Rule
-    services:
-    - name: kulturnetzd-moodle
-      port: 80
+    - match: Host(`kulturnetzd.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: kulturnetzd-moodle
+          port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: kulturnetzd
+  name: moodle
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`kulturnetz-d.ar`)
+      kind: Rule
+      services:
+        - name: kulturnetzd-moodle
+          port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: kulturnetzd
+  name: moodle-tls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`kulturnetz-d.ar`)
+      kind: Rule
+      services:
+        - name: kulturnetzd-moodle
+          port: 80
