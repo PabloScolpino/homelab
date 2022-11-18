@@ -1,0 +1,56 @@
+---
+all:
+  vars:
+    ansible_ssh_extra_args: "-o ForwardAgent=yes"
+  children:
+    # Infrastructure
+    pfsense:
+      hosts:
+        10.0.0.1:
+    pve1:
+      hosts:
+        10.0.0.2:
+    pve2:
+      hosts:
+        10.0.0.3:
+    nas:
+      hosts:
+        10.0.0.5:
+    piole:
+      hosts:
+        10.0.0.10:
+    unifi:
+      hosts:
+        10.0.0.20:
+    unifiap:
+      hosts:
+        10.0.0.21:
+    # IoT
+    impresora:
+      hosts:
+        10.0.0.30:
+    # Servers
+    k8s:
+      hosts:
+        10.0.0.50:
+    kulturnetzd:
+      hosts:
+        10.0.0.55:
+    plex:
+      hosts:
+        10.0.0.60:
+    minecraft:
+      hosts:
+        10.0.0.61:
+    pi:
+      hosts:
+        10.1.0.10:
+
+
+    # Workstations
+    hermes:
+      hosts:
+        192.168.178.20:
+    work:
+      hosts:
+        10.0.0.62:
