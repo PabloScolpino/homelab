@@ -16,26 +16,25 @@ all:
     nas:
       hosts:
         10.0.0.5:
-    piole:
-      hosts:
-        10.0.0.10:
     unifi:
       hosts:
         10.0.0.20:
-    unifiap:
+    unifiap-1:
       hosts:
         10.0.0.21:
+    unifiap-2:
+      hosts:
+        10.0.0.22:
+
     # IoT
     impresora:
       hosts:
         10.0.0.30:
+
     # Servers
     k8s:
       hosts:
         10.0.0.50:
-    kulturnetzd:
-      hosts:
-        10.0.0.55:
     plex:
       hosts:
         10.0.0.60:
