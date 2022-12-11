@@ -3,7 +3,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   namespace: kulturnetzd
-  name: moodle
+  name: kulturnetzd.ar.olumpos.net
 spec:
   entryPoints:
     - web
@@ -18,7 +18,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   namespace: kulturnetzd
-  name: moodle-tls
+  name: kulturnetzd.ar.olumpos.net-tls
 spec:
   entryPoints:
     - websecure
@@ -33,7 +33,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   namespace: kulturnetzd
-  name: moodle
+  name: kulturnetz-d.ar
 spec:
   entryPoints:
     - web
@@ -48,7 +48,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   namespace: kulturnetzd
-  name: moodle-tls
+  name: kulturnetz-d.ar-tls
 spec:
   entryPoints:
     - websecure
