@@ -17,33 +17,33 @@ spec:
         app: smokeping
     spec:
       containers:
-      - name: smokeping
-        image: ghcr.io/linuxserver/smokeping:2.7.3-r5-ls167
-        ports:
-          - name: web
-            containerPort: 80
-            protocol: TCP
-        env:
+        - name: smokeping
+          image: ghcr.io/linuxserver/smokeping:2.7.3-r5-ls167
+          ports:
+            - name: web
+              containerPort: 80
+              protocol: TCP
+      env:
         - name: PUID
           value: "1003"
         - name: PGID
           value: "1006"
         - name: TZ
           value: America/Argentina/Buenos_Aires
-        volumeMounts:
-          - name: config
-            mountPath: "/config"
-          - name: data
-            mountPath: "/data"
+      volumeMounts:
+        - name: config
+          mountPath: "/config"
+        - name: data
+          mountPath: "/data"
       securityContext:
         fsGroup: 1006
       volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: smokeping-config
-      - name: data
-        persistentVolumeClaim:
-          claimName: smokeping-data
+        - name: config
+          persistentVolumeClaim:
+            claimName: smokeping-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: smokeping-data
 ---
 apiVersion: v1
 kind: Service
@@ -57,6 +57,40 @@ spec:
   selector:
     app: smokeping
   ports:
-  - name: web
-    port: 80
-    protocol: TCP
+    - name: web
+      port: 80
+      protocol: TCP
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: status
+  name: smokeping
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`status.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: smokeping
+          port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: status
+  name: smokeping-tls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`status.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: smokeping
+          port: 80
+  tls:
+    certResolver: letsencrypt
+    domains:
+      - main: status.ar.olumpos.net
