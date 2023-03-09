@@ -87,6 +87,21 @@ spec:
     lun: 0
     targetPortal: nas.ar.olumpos.lan
   storageClassName: iscsi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jacket-config
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  iscsi:
+    iqn: iqn.2005-10.org.freenas.ctl:jacket
+    lun: 0
+    targetPortal: nas.ar.olumpos.lan
+  storageClassName: iscsi
 # ---
 # apiVersion: v1
 # kind: PersistentVolume

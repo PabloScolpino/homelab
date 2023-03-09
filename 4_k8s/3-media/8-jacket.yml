@@ -3,25 +3,25 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: media
-  name: readar
+  name: jacket
   labels:
-    app: readar
+    app: jacket
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: readar
+      app: jacket
   template:
     metadata:
       labels:
-        app: readar
+        app: jacket
     spec:
       containers:
-      - name: readar
-        image: ghcr.io/linuxserver/readarr:nightly
+      - name: jacket
+        image: lscr.io/linuxserver/jackett:latest
         ports:
           - name: web
-            containerPort: 8787
+            containerPort: 9117
             protocol: TCP
         env:
         - name: PUID
@@ -31,65 +31,55 @@ spec:
         volumeMounts:
           - name: config
             mountPath: "/config"
-          - name: downloads
-            mountPath: "/downloads"
-          - name: books
-            mountPath: "/books"
+      securityContext:
+        fsGroup: 1006
       volumes:
       - name: config
         persistentVolumeClaim:
-          claimName: readar-config
-      - name: downloads
-        persistentVolumeClaim:
-          claimName: nas-downloads
-      - name: books
-        persistentVolumeClaim:
-          claimName: nas-books
+          claimName: jacket-config
 ---
 apiVersion: v1
 kind: Service
 metadata:
   namespace: media
-  name: readar
+  name: jacket
   labels:
-    app: readar
+    app: jacket
 spec:
   type: NodePort
   selector:
-    app: readar
+    app: jacket
   ports:
   - name: web
-    port: 8787
+    port: 9117
     protocol: TCP
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   namespace: media
-  name: readar
+  name: jacket
 spec:
   entryPoints:
     - web
   routes:
-  - match: Host(`readar.ar.olumpos.net`)
+  - match: Host(`jacket.ar.olumpos.net`)
     kind: Rule
     services:
-    - name: readar
-      port: 8787
+    - name: jacket
+      port: 9117
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   namespace: media
-  name: readar-tls
+  name: jacket-tls
 spec:
   entryPoints:
     - websecure
   routes:
-  - match: Host(`readar.ar.olumpos.net`)
+  - match: Host(`jacket.ar.olumpos.net`)
     kind: Rule
     services:
-    - name: readar
-      port: 8787
-  tls:
-    certResolver: letsencrypt
+    - name: jacket
+      port: 9117

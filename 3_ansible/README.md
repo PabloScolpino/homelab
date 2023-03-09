@@ -34,18 +34,4 @@
 
 ## Setup terminal on linux host
 
-### prerequisites
-
-    # RUN as root
-
-    apt-get update
-    apt-get install sudo
-    usermod -aG sudo quantum
-
-### On all machines
-
-    ansible-playbook ./terminal.yml -i ./inventory/all.yml --ask-become-pass
-
-### On a specific machine
-
-    ansible-playbook ./terminal.yml -i ./inventory/all.yml --limit hermes
+    ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit hermes
