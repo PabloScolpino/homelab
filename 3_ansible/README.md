@@ -35,3 +35,4 @@
 ## Setup terminal on linux host
 
     ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit hermes
+    ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit work
