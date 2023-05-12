@@ -1,3 +1,6 @@
+4_k8s/2-status/10-pv-ar.yml filter=git-crypt diff=git-crypt
+4_k8s/2-status/11-pv-de.yml filter=git-crypt diff=git-crypt
 4_k8s/3-media/1-persistent-volume-ar.yml filter=git-crypt diff=git-crypt
+4_k8s/6-linguafinder/10-pv-ar.yml filter=git-crypt diff=git-crypt
 4_k8s/9-moodle/1-persistent-volume-ar-files-nas.yml filter=git-crypt diff=git-crypt
 4_k8s/9-moodle/values.yml filter=git-crypt diff=git-crypt
