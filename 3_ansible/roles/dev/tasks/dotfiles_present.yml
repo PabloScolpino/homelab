@@ -1,3 +1,4 @@
+---
 - name: Dotfiles present
   include_role:
     name: geerlingguy.dotfiles
@@ -13,5 +14,3 @@
       - .inputrc
       - .vimrc
       - .UltiSnips
-
-# - name: Source the right file in terminal rc

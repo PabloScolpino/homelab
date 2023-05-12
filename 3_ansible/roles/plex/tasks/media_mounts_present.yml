@@ -8,6 +8,11 @@
     - cifs-utils
     - linux-modules-extra-{{ ansible_kernel }}
 
+- name: Update initramfs
+  become: true
+  ansible.builtin.command:
+    cmd: update-initramfs -u
+
 - name: Mount points exist
   become: true
   ansible.builtin.file:

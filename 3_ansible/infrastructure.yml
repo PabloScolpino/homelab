@@ -39,5 +39,6 @@
   roles:
     - ansible_dependencies
     - user_in_sudoers
-    - terminal
     - docker-node
+    - terminal
+    - dev

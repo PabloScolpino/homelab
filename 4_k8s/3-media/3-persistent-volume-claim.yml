@@ -59,6 +59,20 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   namespace: media
+  name: jacket-config
+spec:
+  volumeName: jacket-config
+  accessModes:
+    - ReadWriteMany
+  storageClassName: iscsi
+  resources:
+    requests:
+      storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
   name: kavita-config
 spec:
   volumeName: kavita-config

@@ -5,8 +5,10 @@
 #
 #
 #
-disk_name=main
+ciuser=quantum
 cloud_image_file=focal-server-cloudimg-amd64.img
+disk_name=main
+nameserver_id=10.0.0.1
 vmid=9000
 vmname=cloud-template
 
@@ -58,12 +60,12 @@ qm set ${vmid} --agent enabled=1
 #
 # qm set ${vmid} --ciuser "quantum"
 # qm set ${vmid} --ipconfig0 "ip=dhcp"
-qm set ${vmid} --ciuser quantum
-qm set ${vmid} --cipassword $cipassword
+qm set ${vmid} --ciuser ${ciuser}
+qm set ${vmid} --cipassword ${cipassword}
 qm set ${vmid} --sshkeys ./id_rsa.pub
 qm set ${vmid} --citype nocloud
 qm set ${vmid} --searchdomain ar.olumpos.net
-qm set ${vmid} --nameserver 192.168.1.12
+qm set ${vmid} --nameserver ${nameserver_id}
 qm set ${vmid} --ipconfig0 ip=dhcp
 
 # NOTE: DO NOT SET IT AS TEMPLATE YET
