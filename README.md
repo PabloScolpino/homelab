@@ -1,4 +1,4 @@
-# Purpose
+# 1. Purpose
 
 * Have many services running as containers in our homelab
 * Have some services running as VMs in our homelab
@@ -7,46 +7,37 @@
 * Inbound traffic from lan and wan.
 * Reverse dns /proxy
 
-# Platform
+# 2. Hardware
 
-* one openwrt router
-  * wireguard
-* one proxmox node
-  * unbound / pihole on VM
-  * unifi controller
-  * microk8s on VM
-  * ? FreeNAS ?
-* one freenas
-  * nfs server
-  * cifs server
+* one pfsense firewall
+    * wireguard
+    * haproxy
+* two proxmox nodes
+    * main
+        * single k8s cluster node
+        * plex
+        * minecraft
+        * unify controller
+    * secondary
+        * the pfsense firewall
+* one TrueNAS
+    * nfs server
+    * cifs server
 
-## Basic infrastructure setup
+# 3. Basic infrastructure setup
 
-### OpenWRT
-OpenWRT install is manual
+## pFsense
+pFsense install is manual
 
-### FreeNAS
-FreeNAS install is manual
-
-### Proxmox
+## Proxmox
 Proxmox install is manual
 
-## VM Template creation
+## TrueNAS core
+FreeNAS install is manual
 
-The contents of `1_cloud_image` describe how to create a working Proxmox-cloud-init template
+# 4. Setup
 
-This template allows the automated creation of VMs based on Ubuntu 20 lts
-
-## VM Provisioning
-
-The creation of the VMs will use the template created in the previous step
-This creation will be done using `2_terraform` files
-
-## VM Configuration
-
-Look at `3_ansible`
-
-## Service deployments
-
-Look at `4_k8s`
-
+## [4.1. VM template definition](1_cloud_image/)
+## [4.2. Provisioning with terraform](2_terraform/)
+## [4.3. Configuration with ansible](3_ansible/)
+## [4.4. Container orchestration with k8s](4_k8s/)
