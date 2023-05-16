@@ -1,7 +1,7 @@
 ---
 - include_tasks: packages_present.yml
 - include_tasks: docker_present.yml
+- include_tasks: nvm_present.yml
 - include_tasks: dotfiles_present.yml
-- include_tasks: fonts_present.yml
 - include_tasks: vim_plug_present.yml
 - include_tasks: workspace_present.yml

@@ -1,3 +1,4 @@
+---
 - name: Docker is present
   include_role:
     name: geerlingguy.docker

@@ -1,5 +1,6 @@
+---
 - name: Packages are present [Debian]
-  become: yes
+  become: true
   when: ansible_os_family == 'Debian'
   apt:
     state: present
@@ -9,7 +10,7 @@
     "{{ packages.debian }}"
 
 - name: Packages are present [Archlinux]
-  become: yes
+  become: true
   when: ansible_os_family == 'Archlinux'
   pacman:
     state: present

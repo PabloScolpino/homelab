@@ -2,8 +2,8 @@
 username: pmedia
 password: QU..cJc*UVry8Wt9ftvV
 media_shares:
-  - source: \\10.0.0.5\media\Movies
+  - source: \\nas.ar.olumpos.lan\media\Movies
     target: /mnt/movies
 
-  - source: \\10.0.0.5\media\Series
+  - source: \\nas.ar.olumpos.lan\media\Series
     target: /mnt/series
