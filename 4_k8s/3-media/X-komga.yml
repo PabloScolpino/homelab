@@ -17,34 +17,34 @@ spec:
         app: komga
     spec:
       containers:
-      - name: komga
-        image: gotson/komga:latest
-        ports:
-          - name: web
-            containerPort: 8080
-            protocol: TCP
-        volumeMounts:
-          - name: config
-            mountPath: "/config"
-          - name: books
-            mountPath: "/books"
-          - name: comics
-            mountPath: "/comics"
-          - name: downloads
-            mountPath: "/downloads"
+        - name: komga
+          image: gotson/komga:latest
+          ports:
+            - name: web
+              containerPort: 8080
+              protocol: TCP
+          volumeMounts:
+            - name: config
+              mountPath: "/config"
+            - name: books
+              mountPath: "/books"
+            - name: comics
+              mountPath: "/comics"
+            - name: downloads
+              mountPath: "/downloads"
       volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: komga-config
-      - name: books
-        persistentVolumeClaim:
-          claimName: nas-books
-      - name: comics
-        persistentVolumeClaim:
-          claimName: nas-comics
-      - name: downloads
-        persistentVolumeClaim:
-          claimName: nas-downloads
+        - name: config
+          persistentVolumeClaim:
+            claimName: komga-config
+        - name: books
+          persistentVolumeClaim:
+            claimName: nas-books
+        - name: comics
+          persistentVolumeClaim:
+            claimName: nas-comics
+        - name: downloads
+          persistentVolumeClaim:
+            claimName: nas-downloads
 ---
 apiVersion: v1
 kind: Service
@@ -58,9 +58,9 @@ spec:
   selector:
     app: komga
   ports:
-  - name: web
-    port: 8080
-    protocol: TCP
+    - name: web
+      port: 8080
+      protocol: TCP
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -71,11 +71,11 @@ spec:
   entryPoints:
     - web
   routes:
-  - match: Host(`komga.ar.olumpos.net`)
-    kind: Rule
-    services:
-    - name: komga
-      port: 8080
+    - match: Host(`komga.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: komga
+          port: 8080
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -86,10 +86,8 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: Host(`komga.ar.olumpos.net`)
-    kind: Rule
-    services:
-    - name: komga
-      port: 8080
-  tls:
-    certResolver: letsencrypt
+    - match: Host(`komga.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: komga
+          port: 8080

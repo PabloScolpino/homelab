@@ -17,26 +17,26 @@ spec:
         app: jacket
     spec:
       containers:
-      - name: jacket
-        image: lscr.io/linuxserver/jackett:latest
-        ports:
-          - name: web
-            containerPort: 9117
-            protocol: TCP
-        env:
-        - name: PUID
-          value: "1003"
-        - name: PGID
-          value: "1006"
-        volumeMounts:
-          - name: config
-            mountPath: "/config"
+        - name: jacket
+          image: lscr.io/linuxserver/jackett:latest
+          ports:
+            - name: web
+              containerPort: 9117
+              protocol: TCP
+          env:
+            - name: PUID
+              value: "1003"
+            - name: PGID
+              value: "1006"
+          volumeMounts:
+            - name: config
+              mountPath: "/config"
       securityContext:
         fsGroup: 1006
       volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: jacket-config
+        - name: config
+          persistentVolumeClaim:
+            claimName: jacket-config
 ---
 apiVersion: v1
 kind: Service
@@ -50,9 +50,9 @@ spec:
   selector:
     app: jacket
   ports:
-  - name: web
-    port: 9117
-    protocol: TCP
+    - name: web
+      port: 9117
+      protocol: TCP
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -63,11 +63,11 @@ spec:
   entryPoints:
     - web
   routes:
-  - match: Host(`jacket.ar.olumpos.net`)
-    kind: Rule
-    services:
-    - name: jacket
-      port: 9117
+    - match: Host(`jacket.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: jacket
+          port: 9117
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -78,8 +78,8 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: Host(`jacket.ar.olumpos.net`)
-    kind: Rule
-    services:
-    - name: jacket
-      port: 9117
+    - match: Host(`jacket.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: jacket
+          port: 9117

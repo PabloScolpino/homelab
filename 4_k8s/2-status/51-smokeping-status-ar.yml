@@ -28,7 +28,3 @@ spec:
       services:
         - name: smokeping
           port: 80
-  tls:
-    certResolver: letsencrypt
-    domains:
-      - main: status.ar.olumpos.net
