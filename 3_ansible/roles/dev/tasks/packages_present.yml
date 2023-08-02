@@ -2,7 +2,7 @@
 - name: Packages are present [Debian]
   become: true
   when: ansible_os_family == 'Debian'
-  apt:
+  ansible.builtin.apt:
     state: present
     install_recommends: false
     name: '{{ item }}'
@@ -12,7 +12,7 @@
 - name: Packages are present [Archlinux]
   become: true
   when: ansible_os_family == 'Archlinux'
-  pacman:
+  ansible.builtin.pacman:
     state: present
     name: '{{ item }}'
   with_items:

@@ -1,6 +1,6 @@
 ---
 - name: packages present
-  become: yes
+  become: true
   ansible.builtin.package:
     name: "{{ item }}"
     state: present

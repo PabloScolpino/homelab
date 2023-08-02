@@ -1,9 +1,6 @@
 ---
-username: pmedia
-password: QU..cJc*UVry8Wt9ftvV
 media_shares:
-  - source: \\nas.ar.olumpos.lan\media\Movies
+  - source: nas.ar.olumpos.lan:/mnt/first-pool/archivos-red/media/Movies
     target: /mnt/movies
-
-  - source: \\nas.ar.olumpos.lan\media\Series
+  - source: nas.ar.olumpos.lan:/mnt/first-pool/archivos-red/media/Series
     target: /mnt/series
