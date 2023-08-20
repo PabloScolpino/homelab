@@ -17,6 +17,16 @@
     group: root
   loop: "{{ media_shares }}"
 
+- name: Network shares present in fstab
+  become: true
+  ansible.posix.mount:
+    src: "{{ item.source }}"
+    path: "{{ item.target }}"
+    opts: nfsvers=3,rsize=1048576,wsize=1048576,hard,ro
+    state: present
+    fstype: nfs
+  loop: "{{ media_shares }}"
+
 - name: Network shares mounted
   become: true
   ansible.posix.mount:
