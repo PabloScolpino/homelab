@@ -19,13 +19,12 @@ metadata:
   namespace: media
   name: radar-config
 spec:
-  volumeName: radar-config
   accessModes:
-    - ReadWriteMany
-  storageClassName: iscsi
+    - ReadWriteOnce
+  storageClassName: local-path
   resources:
     requests:
-      storage: 1Mi
+      storage: 5Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -33,13 +32,12 @@ metadata:
   namespace: media
   name: sonar-config
 spec:
-  volumeName: sonar-config
   accessModes:
-    - ReadWriteMany
-  storageClassName: iscsi
+    - ReadWriteOnce
+  storageClassName: local-path
   resources:
     requests:
-      storage: 1Mi
+      storage: 5Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -47,13 +45,12 @@ metadata:
   namespace: media
   name: bazar-config
 spec:
-  volumeName: bazar-config
   accessModes:
-    - ReadWriteMany
-  storageClassName: iscsi
+    - ReadWriteOnce
+  storageClassName: local-path
   resources:
     requests:
-      storage: 1Mi
+      storage: 5Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -64,7 +61,7 @@ spec:
   volumeName: jacket-config
   accessModes:
     - ReadWriteMany
-  storageClassName: iscsi
+  storageClassName: nfs
   resources:
     requests:
       storage: 1Mi
