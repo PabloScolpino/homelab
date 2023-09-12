@@ -17,36 +17,36 @@ spec:
         app: radar
     spec:
       containers:
-      - name: radar
-        image: ghcr.io/linuxserver/radarr
-        ports:
-          - name: web
-            containerPort: 7878
-            protocol: TCP
-        env:
-        - name: PUID
-          value: "1003"
-        - name: PGID
-          value: "1006"
-        volumeMounts:
-          - name: config
-            mountPath: "/config"
-          - name: downloads
-            mountPath: "/downloads"
-          - name: movies
-            mountPath: "/movies"
+        - name: radar
+          image: ghcr.io/linuxserver/radarr
+          ports:
+            - name: web
+              containerPort: 7878
+              protocol: TCP
+          env:
+            - name: PUID
+              value: "1003"
+            - name: PGID
+              value: "1006"
+          volumeMounts:
+            - name: config
+              mountPath: "/config"
+            - name: downloads
+              mountPath: "/downloads"
+            - name: movies
+              mountPath: "/movies"
       securityContext:
         fsGroup: 1006
       volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: radar-config
-      - name: downloads
-        persistentVolumeClaim:
-          claimName: nas-downloads
-      - name: movies
-        persistentVolumeClaim:
-          claimName: nas-movies
+        - name: config
+          persistentVolumeClaim:
+            claimName: radar-config
+        - name: downloads
+          persistentVolumeClaim:
+            claimName: nas-downloads
+        - name: movies
+          persistentVolumeClaim:
+            claimName: nas-movies
 ---
 apiVersion: v1
 kind: Service
@@ -60,9 +60,9 @@ spec:
   selector:
     app: radar
   ports:
-  - name: web
-    port: 7878
-    protocol: TCP
+    - name: web
+      port: 7878
+      protocol: TCP
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -73,11 +73,11 @@ spec:
   entryPoints:
     - web
   routes:
-  - match: Host(`radar.ar.olumpos.net`)
-    kind: Rule
-    services:
-    - name: radar
-      port: 7878
+    - match: Host(`radar.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: radar
+          port: 7878
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -88,8 +88,8 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: Host(`radar.ar.olumpos.net`)
-    kind: Rule
-    services:
-    - name: radar
-      port: 7878
+    - match: Host(`radar.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: radar
+          port: 7878
