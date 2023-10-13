@@ -18,7 +18,6 @@ resource "proxmox_vm_qemu" "unifi_vm" {
   desc        = "Unifi controller VM"
 
   cores   = 2
-  balloon = 512
   memory  = 3072
 
   disk {
@@ -30,48 +29,10 @@ resource "proxmox_vm_qemu" "unifi_vm" {
 
   network {
     model  = "virtio"
-    bridge = "vmbr0"
+    bridge = "vmbr1"
   }
 
   ipconfig0    = "ip=10.0.0.20/24,gw=${var.gateway}"
-}
-
-resource "proxmox_vm_qemu" "observium" {
-  target_node = var.target_node
-  clone       = var.template_name
-  os_type     = "cloud-init"
-
-  onboot = true
-  boot   = "c"
-  agent  = 1
-  bios    = "ovmf"
-
-  ciuser       = var.ciuser
-  sshkeys      = var.sshkeys
-  nameserver   = var.nameserver
-  searchdomain = var.searchdomain
-
-  vmid        = 110
-  name        = "observium.ar.olumpos.lan"
-  desc        = "Observium VM"
-
-  cores   = 4
-  balloon = 1024
-  memory  = 4096
-
-  disk {
-    size    = "60620M"
-    type    = "scsi"
-    storage = var.disk_storage
-    ssd     = 1
-  }
-
-  network {
-    model  = "virtio"
-    bridge = "vmbr0"
-  }
-
-  ipconfig0    = "ip=10.0.0.10/24,gw=${var.gateway}"
 }
 
 resource "proxmox_vm_qemu" "k8s" {
@@ -106,7 +67,7 @@ resource "proxmox_vm_qemu" "k8s" {
 
   network {
     model  = "virtio"
-    bridge = "vmbr0"
+    bridge = "vmbr1"
   }
 
   ipconfig0    = "ip=10.0.0.50/24,gw=${var.gateway}"
@@ -133,7 +94,6 @@ resource "proxmox_vm_qemu" "plex" {
 
   cpu     = "host,hidden=1"
   cores   = 6
-  balloon = 2048
   memory  = 6144
 
   disk {
@@ -145,7 +105,7 @@ resource "proxmox_vm_qemu" "plex" {
 
   network {
     model  = "virtio"
-    bridge = "vmbr0"
+    bridge = "vmbr1"
   }
 
   ipconfig0    = "ip=10.0.0.60/24,gw=${var.gateway}"
@@ -184,7 +144,7 @@ resource "proxmox_vm_qemu" "minecraft" {
 
   network {
     model  = "virtio"
-    bridge = "vmbr0"
+    bridge = "vmbr1"
   }
 
   ipconfig0    = "ip=10.0.0.61/24,gw=${var.gateway}"
@@ -211,8 +171,7 @@ resource "proxmox_vm_qemu" "workstation-pablo" {
 
   cpu     = "host,hidden=1"
   cores   = 4
-  balloon = 4096
-  memory  = 8192
+  memory  = 16384
 
   disk {
     size    = "99532M"
@@ -223,7 +182,7 @@ resource "proxmox_vm_qemu" "workstation-pablo" {
 
   network {
     model  = "virtio"
-    bridge = "vmbr0"
+    bridge = "vmbr1"
   }
 
   ipconfig0    = "ip=10.0.0.62/24,gw=${var.gateway}"
@@ -262,7 +221,7 @@ resource "proxmox_vm_qemu" "workstation-fede" {
 
   network {
     model  = "virtio"
-    bridge = "vmbr0"
+    bridge = "vmbr1"
   }
 
   ipconfig0    = "ip=10.0.0.63/24,gw=${var.gateway}"
