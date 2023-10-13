@@ -22,7 +22,7 @@
   ansible.posix.mount:
     src: "{{ item.source }}"
     path: "{{ item.target }}"
-    opts: nfsvers=3,rsize=1048576,wsize=1048576,hard,ro
+    opts: nfsvers=3,rsize=1048576,wsize=1048576,hard,ro,auto
     state: present
     fstype: nfs
   loop: "{{ media_shares }}"
@@ -32,7 +32,7 @@
   ansible.posix.mount:
     src: "{{ item.source }}"
     path: "{{ item.target }}"
-    opts: nfsvers=3,rsize=1048576,wsize=1048576,hard,ro
+    opts: nfsvers=3,rsize=1048576,wsize=1048576,hard,ro,auto
     state: mounted
     fstype: nfs
   loop: "{{ media_shares }}"
