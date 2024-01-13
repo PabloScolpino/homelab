@@ -11,4 +11,4 @@
 
 # Importing existing VM into infrastructure definition
 
-    terraform import 'proxmox_vm_qemu.unifi_vm[0]' pve/qemu/114
+    terraform import proxmox_vm_qemu.unifi_vm.unifi_vm pve/qemu/120
