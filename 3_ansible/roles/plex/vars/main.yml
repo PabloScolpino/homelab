@@ -1,6 +1,6 @@
 ---
 media_shares:
-  - source: nas.ar.olumpos.lan:/mnt/first-pool/archivos-red/media/Movies
+  - source: 10.30.0.5:/mnt/first-pool/archivos-red/media/Movies
     target: /mnt/movies
-  - source: nas.ar.olumpos.lan:/mnt/first-pool/archivos-red/media/Series
+  - source: 10.30.0.5:/mnt/first-pool/archivos-red/media/Series
     target: /mnt/series

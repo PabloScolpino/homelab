@@ -1,4 +1,4 @@
 ---
 dependencies:
   - role: nephelaiio.unifi_controller
-    become: yes
+    become: true
