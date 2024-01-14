@@ -7,26 +7,31 @@
     ansible-galaxy install -r requirements.yml
 
 # Development
+
+Check available commands with:
+
+    make help
+
 ## Validate inventory with
 
-    ansible-inventory -i inventory --graph
-    ansible-playbook ./dev_env_setup.yml -i ./inventory/all.yml --list-hosts
+    make validate
 
-## Kubernetes cluster
-[how to access the cluster](https://kubernetes.io/docs/tasks/access-application-cluster/access-cluster/)
 
 # Homelab Infrastructure
 
-    ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --ask-become-pass
-
-## Pi Remote Node
-    ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit pi
+    make infrastructure
 
 ## Plex
-    ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit plex
+
+    make plex
 
 ## K8s
-    ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit k8s
+
+    make k8s
+
+### Kubernetes cluster
+
+[how to access the cluster](https://kubernetes.io/docs/tasks/access-application-cluster/access-cluster/)
 
 ## Development setup
 
