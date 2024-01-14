@@ -11,14 +11,14 @@ validate: ## Validate inventory
 	ansible-inventory -i inventory --graph
 	ansible-playbook ./dev_env_setup.yml -i ./inventory/all.yml --list-hosts
 
-infrastructure: ## Run on all hosts
+infrastructure: install ## Run on all hosts
 	ansible-playbook ./infrastructure.yml -i ./inventory/all.yml
 
-unifi: ## Deploy unifi controller
+unifi: install ## Deploy unifi controller
 	ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit unifi
 
-plex: ## Deploy plex server
+plex: install ## Deploy plex server
 	ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit plex
 
-k8s: ## Deploy k8s cluster
+k8s: install ## Deploy k8s cluster
 	ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit k8s

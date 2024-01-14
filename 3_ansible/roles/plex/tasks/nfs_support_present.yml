@@ -1,6 +1,10 @@
 ---
 - name: NFS support is present
-  become: yes
+  become: true
   ansible.builtin.package:
-    name: nfs-common
     state: present
+    install_recommends: false
+    name: '{{ item }}'
+  with_items:
+    - nfs-common
+    - autofs

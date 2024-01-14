@@ -1,9 +1,14 @@
 ---
-- geerlingguy.docker
-- geerlingguy.dotfiles
-- weareinteractive.sudo
-- geerlingguy.postgresql
-- nephelaiio.unifi_controller
-- xanmanning.k3s
-- nolte.minecraft
-- nvidia.nvidia_driver
+# collections:
+#   -
+
+roles:
+  - geerlingguy.docker
+  - geerlingguy.dotfiles
+  - weareinteractive.sudo
+  - geerlingguy.postgresql
+  - nephelaiio.unifi_controller
+  - xanmanning.k3s
+  - nolte.minecraft
+  - nvidia.nvidia_driver
+  - robertdebock.autofs

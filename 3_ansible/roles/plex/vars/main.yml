@@ -1,6 +1,6 @@
 ---
 media_shares:
   - source: 10.30.0.5:/mnt/first-pool/archivos-red/media/Movies
-    target: /mnt/movies
+    target: movies # autofs adds /mnt
   - source: 10.30.0.5:/mnt/first-pool/archivos-red/media/Series
-    target: /mnt/series
+    target: series # autofs adds /mnt
