@@ -13,44 +13,44 @@ spec:
     requests:
       storage: 1Mi
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  namespace: media
-  name: radar-config
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: local-path
-  resources:
-    requests:
-      storage: 5Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  namespace: media
-  name: sonar-config
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: local-path
-  resources:
-    requests:
-      storage: 5Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  namespace: media
-  name: bazar-config
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: local-path
-  resources:
-    requests:
-      storage: 5Gi
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   namespace: media
+#   name: radar-config
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   storageClassName: local-path
+#   resources:
+#     requests:
+#       storage: 5Gi
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   namespace: media
+#   name: sonar-config
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   storageClassName: local-path
+#   resources:
+#     requests:
+#       storage: 5Gi
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   namespace: media
+#   name: bazar-config
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   storageClassName: local-path
+#   resources:
+#     requests:
+#       storage: 5Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -61,10 +61,10 @@ spec:
   volumeName: jacket-config
   accessModes:
     - ReadWriteMany
-  storageClassName: nfs
   resources:
     requests:
       storage: 1Mi
+  storageClassName: nfs
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -73,20 +73,6 @@ metadata:
   name: kavita-config
 spec:
   volumeName: kavita-config
-  accessModes:
-    - ReadWriteMany
-  storageClassName: iscsi
-  resources:
-    requests:
-      storage: 1Mi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  namespace: media
-  name: komga-config
-spec:
-  volumeName: komga-config
   accessModes:
     - ReadWriteMany
   storageClassName: iscsi
