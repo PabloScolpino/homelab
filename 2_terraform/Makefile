@@ -12,3 +12,6 @@ refresh: ## Ingest changes from proxmox
 
 apply: ## Apply the changes
 	terraform apply
+
+import:
+	terraform import "proxmox_vm_qemu.unifi_vm" pve-2/qemu/120

@@ -67,17 +67,11 @@ resource "proxmox_vm_qemu" "k8s" {
   network {
     model  = "virtio"
     bridge = "vmbr1"
-  }
-
-  network {
-    model  = "virtio"
-    bridge = "vmbr1"
     tag    = 30
   }
   nameserver   = "10.30.0.1"
 
   ipconfig0 = "ip=dhcp"
-  ipconfig1 = "ip=dhcp"
 }
 
 resource "proxmox_vm_qemu" "plex" {
@@ -115,8 +109,15 @@ resource "proxmox_vm_qemu" "plex" {
     tag    = 30
   }
 
+  network {
+    model  = "virtio"
+    bridge = "vmbr1"
+    tag    = 40
+  }
+
   nameserver   = "10.30.0.1"
   ipconfig0 = "ip=dhcp"
+  ipconfig1 = "ip=dhcp"
 }
 
 resource "proxmox_vm_qemu" "minecraft" {
@@ -153,6 +154,84 @@ resource "proxmox_vm_qemu" "minecraft" {
     model  = "virtio"
     bridge = "vmbr1"
     tag    = 30
+  }
+
+  nameserver   = "10.30.0.1"
+  ipconfig0 = "ip=dhcp"
+}
+
+resource "proxmox_vm_qemu" "deluge" {
+  clone        = var.template_name
+  os_type      = var.os_type
+  scsihw       = var.scsihw
+  qemu_os      = var.qemu_os
+  onboot       = var.onboot
+  boot         = var.boot
+  agent        = var.agent
+  bios         = var.bios
+  ciuser       = var.ciuser
+  sshkeys      = var.sshkeys
+  searchdomain = var.searchdomain
+
+  target_node = "pve-2"
+  vmid        = 165
+  name        = "deluge.ar.olumpos.lan"
+  desc        = "Deluge VM"
+
+  cpu    = "host,hidden=1"
+  cores  = 2
+  memory = 2048
+
+  disk {
+    size    = "29900M"
+    type    = "scsi"
+    storage = var.disk_storage
+    ssd     = 1
+  }
+
+  network {
+    model  = "virtio"
+    bridge = "vmbr1"
+    tag    = 30
+  }
+
+  nameserver   = "10.30.0.1"
+  ipconfig0 = "ip=dhcp"
+}
+
+resource "proxmox_vm_qemu" "workstation" {
+  clone        = var.template_name
+  os_type      = var.os_type
+  scsihw       = var.scsihw
+  qemu_os      = var.qemu_os
+  onboot       = var.onboot
+  boot         = var.boot
+  agent        = var.agent
+  bios         = var.bios
+  ciuser       = var.ciuser
+  sshkeys      = var.sshkeys
+  searchdomain = var.searchdomain
+
+  target_node = "pve-2"
+  vmid        = 180
+  name        = "workstation.ar.olumpos.lan"
+  desc        = "Workstation VM"
+
+  cpu    = "host,hidden=1"
+  cores  = 8
+  memory = 16384
+
+  disk {
+    size    = "100G"
+    type    = "scsi"
+    storage = var.disk_storage
+    ssd     = 1
+  }
+
+  network {
+    model  = "virtio"
+    bridge = "vmbr1"
+    tag    = 40
   }
 
   nameserver   = "10.30.0.1"
