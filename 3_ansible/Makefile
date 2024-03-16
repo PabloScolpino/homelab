@@ -22,3 +22,6 @@ plex: install ## Deploy plex server
 
 k8s: install ## Deploy k8s cluster
 	ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit k8s
+
+workstation: install ## Deploy k8s cluster
+	ansible-playbook ./infrastructure.yml -i ./inventory/all.yml --limit workstation

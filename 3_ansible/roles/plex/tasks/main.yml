@@ -2,3 +2,4 @@
 - include_tasks: plex_present.yml
 - include_tasks: nfs_support_present.yml
 - include_tasks: media_mounts_present.yml
+- include_tasks: mount_transcoding_tmp.yml
