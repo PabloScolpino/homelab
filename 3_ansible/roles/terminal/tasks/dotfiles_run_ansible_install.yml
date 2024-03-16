@@ -1,0 +1,3 @@
+---
+- name: Run dotfiles ansible task
+  ansible.builtin.shell: make ansible_install
