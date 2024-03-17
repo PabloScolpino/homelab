@@ -2,6 +2,6 @@
 - name: Dotfiles present
   ansible.builtin.git:
     repo: https://github.com/PabloScolpino/terminalrc.git
-    dest: "{{ ansible_env.HOME }}/.dotfiles"
+    dest: "{{ dotfiles_path }}"
     recursive: true
     force: true

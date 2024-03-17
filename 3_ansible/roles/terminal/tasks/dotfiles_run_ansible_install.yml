@@ -1,3 +1,5 @@
 ---
-- name: Run dotfiles ansible task
-  ansible.builtin.shell: make ansible_install
+- name: Run dotfiles ansible install task
+  ansible.builtin.shell:
+    cmd: make ansible_install
+    chdir: "{{ dotfiles_path }}/setup"
