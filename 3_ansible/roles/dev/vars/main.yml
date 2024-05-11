@@ -1,13 +1,5 @@
 ---
 packages:
   debian:
-    - curl
-    - git
-    - vim-nox
-    - mosh
-    - exa
-    - htop
-    - silversearcher-ag
-    - fonts-powerline
+    - ruby-dev
     - ruby-build
-    # - rbenv

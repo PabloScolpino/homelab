@@ -57,7 +57,7 @@ down: ## Scale deployment to 0
 		$(K) scale --replicas=0 deployment.apps/$$service -n media; \
 	done
 
-update: ## Update status deployment
+update: ## Update media deployment
 	$(APPLY) 4-torrent.yml
 	$(APPLY) 5-radar.yml
 	$(APPLY) 6-sonar.yml

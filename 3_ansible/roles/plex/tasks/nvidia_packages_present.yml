@@ -1,0 +1,10 @@
+---
+- name: packages present
+  become: true
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - nvidia-headless-535
+    - nvidia-utils-535
+    - libnvidia-encode-535
