@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,36 +16,37 @@ spec:
         app: sonar
     spec:
       containers:
-      - name: sonar
-        image: ghcr.io/linuxserver/sonarr
-        ports:
-          - name: web
-            containerPort: 8989
-            protocol: TCP
-        env:
-        - name: PUID
-          value: "1003"
-        - name: PGID
-          value: "1006"
-        volumeMounts:
-          - name: config
-            mountPath: "/config"
-          - name: downloads
-            mountPath: "/downloads"
-          - name: series
-            mountPath: "/series"
+        - name: sonar
+          image: ghcr.io/linuxserver/sonarr:latest
+          imagePullPolicy: Always
+          ports:
+            - name: web
+              containerPort: 8989
+              protocol: TCP
+          env:
+            - name: PUID
+              value: "1003"
+            - name: PGID
+              value: "1006"
+          volumeMounts:
+            - name: config
+              mountPath: "/config"
+            - name: downloads
+              mountPath: "/downloads"
+            - name: series
+              mountPath: "/series"
       securityContext:
         fsGroup: 1006
       volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: sonar-config
-      - name: downloads
-        persistentVolumeClaim:
-          claimName: nas-downloads
-      - name: series
-        persistentVolumeClaim:
-          claimName: nas-series
+        - name: config
+          persistentVolumeClaim:
+            claimName: sonar-config
+        - name: downloads
+          persistentVolumeClaim:
+            claimName: nas-downloads
+        - name: series
+          persistentVolumeClaim:
+            claimName: nas-series
 ---
 apiVersion: v1
 kind: Service
@@ -60,9 +60,9 @@ spec:
   selector:
     app: sonar
   ports:
-  - name: web
-    port: 8989
-    protocol: TCP
+    - name: web
+      port: 8989
+      protocol: TCP
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -73,11 +73,11 @@ spec:
   entryPoints:
     - web
   routes:
-  - match: Host(`sonar.ar.olumpos.net`)
-    kind: Rule
-    services:
-    - name: sonar
-      port: 8989
+    - match: Host(`sonar.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: sonar
+          port: 8989
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -88,8 +88,8 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: Host(`sonar.ar.olumpos.net`)
-    kind: Rule
-    services:
-    - name: sonar
-      port: 8989
+    - match: Host(`sonar.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: sonar
+          port: 8989

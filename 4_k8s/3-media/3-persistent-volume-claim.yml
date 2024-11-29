@@ -13,44 +13,44 @@ spec:
     requests:
       storage: 1Mi
 ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   namespace: media
-#   name: radar-config
-# spec:
-#   accessModes:
-#     - ReadWriteOnce
-#   storageClassName: local-path
-#   resources:
-#     requests:
-#       storage: 5Gi
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   namespace: media
-#   name: sonar-config
-# spec:
-#   accessModes:
-#     - ReadWriteOnce
-#   storageClassName: local-path
-#   resources:
-#     requests:
-#       storage: 5Gi
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   namespace: media
-#   name: bazar-config
-# spec:
-#   accessModes:
-#     - ReadWriteOnce
-#   storageClassName: local-path
-#   resources:
-#     requests:
-#       storage: 5Gi
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: radar-config
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: sonar-config
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: media
+  name: bazar-config
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 5Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -58,13 +58,12 @@ metadata:
   namespace: media
   name: jacket-config
 spec:
-  volumeName: jacket-config
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
+  storageClassName: local-path
   resources:
     requests:
-      storage: 1Mi
-  storageClassName: nfs
+      storage: 5Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
