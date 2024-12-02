@@ -11,8 +11,10 @@
     path: /transcodingtmp
     state: directory
     mode: 0755
+    owner: plex
+    group: plex
 
-- name: Mount transcoding temporary directory
+- name: Ensure transcoding temporary mount exists
   become: true
   ansible.posix.mount:
     path: /transcodingtmp
