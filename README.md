@@ -9,20 +9,19 @@
 
 # 2. Hardware
 
-* one pfsense firewall
+* pfsense firewall (on pve-1)
     * wireguard
     * haproxy
-* two proxmox nodes
-    * main
+* three proxmox nodes
+    * pve-1
+        * virtualized pfsense
+    * pve-2
+        * unify controller
         * single k8s cluster node
         * plex
         * minecraft
-        * unify controller
-    * secondary
-        * the pfsense firewall
-* one TrueNAS
-    * nfs server
-    * cifs server
+    * pve-3
+        * virtualized Truenas
 
 # 3. Basic infrastructure setup
 

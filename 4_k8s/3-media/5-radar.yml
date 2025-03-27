@@ -18,7 +18,8 @@ spec:
     spec:
       containers:
         - name: radar
-          image: ghcr.io/linuxserver/radarr
+          image: ghcr.io/linuxserver/radarr:latest
+          imagePullPolicy: Always
           ports:
             - name: web
               containerPort: 7878

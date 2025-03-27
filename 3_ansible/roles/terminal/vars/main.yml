@@ -1,13 +1,2 @@
 ---
-packages:
-  debian:
-    - curl
-    - git
-    - vim-nox
-    - mosh
-    - htop
-    - silversearcher-ag
-    - fonts-powerline
-    - ruby-build
-    # - exa
-    # - rbenv
+dotfiles_path: "{{ ansible_env.HOME }}/.dotfiles"

@@ -1,5 +1,0 @@
----
-- name: Source bashrc custom file
-  lineinfile:
-    path: "${HOME}/.bashrc"
-    line: ". ${HOME}/.dotfiles/config/source_this.bash"

@@ -1,0 +1,31 @@
+
+# - name: Mount up device by label
+#   ansible.posix.mount:
+#     path: /srv/disk
+#     src: LABEL=SOME_LABEL
+#     fstype: ext4
+#     state: present
+- name: Create transcoding temporary directory
+  become: true
+  ansible.builtin.file:
+    path: /transcodingtmp
+    state: directory
+    mode: 0755
+    owner: plex
+    group: plex
+
+- name: Ensure transcoding temporary mount exists
+  become: true
+  ansible.posix.mount:
+    path: /transcodingtmp
+    src: /dev/sdb1
+    fstype: ext4
+    state: present
+
+- name: Mount transcoding temporary directory
+  become: true
+  ansible.posix.mount:
+    path: /transcodingtmp
+    src: /dev/sdb1
+    fstype: ext4
+    state: mounted

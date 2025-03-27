@@ -58,13 +58,12 @@ metadata:
   namespace: media
   name: jacket-config
 spec:
-  volumeName: jacket-config
   accessModes:
-    - ReadWriteMany
-  storageClassName: nfs
+    - ReadWriteOnce
+  storageClassName: local-path
   resources:
     requests:
-      storage: 1Mi
+      storage: 5Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -73,20 +72,6 @@ metadata:
   name: kavita-config
 spec:
   volumeName: kavita-config
-  accessModes:
-    - ReadWriteMany
-  storageClassName: iscsi
-  resources:
-    requests:
-      storage: 1Mi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  namespace: media
-  name: komga-config
-spec:
-  volumeName: komga-config
   accessModes:
     - ReadWriteMany
   storageClassName: iscsi

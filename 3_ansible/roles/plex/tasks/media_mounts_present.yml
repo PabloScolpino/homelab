@@ -1,38 +1,27 @@
 ---
-- name: Network shares unmounted
+- name: Include another role
   become: true
-  ansible.posix.mount:
-    src: "{{ item.source }}"
-    path: "{{ item.target }}"
-    state: unmounted
-    fstype: nfs
-  loop: "{{ media_shares }}"
-
-- name: Mount points exist
-  become: true
-  ansible.builtin.file:
-    path: "{{ item.target }}"
-    state: directory
-    owner: root
-    group: root
-  loop: "{{ media_shares }}"
-
-- name: Network shares present in fstab
-  become: true
-  ansible.posix.mount:
-    src: "{{ item.source }}"
-    path: "{{ item.target }}"
-    opts: nfsvers=3,rsize=1048576,wsize=1048576,hard,ro,auto
-    state: present
-    fstype: nfs
-  loop: "{{ media_shares }}"
-
-- name: Network shares mounted
-  become: true
-  ansible.posix.mount:
-    src: "{{ item.source }}"
-    path: "{{ item.target }}"
-    opts: nfsvers=3,rsize=1048576,wsize=1048576,hard,ro,auto
-    state: mounted
-    fstype: nfs
-  loop: "{{ media_shares }}"
+  block:
+    - ansible.builtin.include_role:
+        name: robertdebock.autofs
+      vars:
+        autofs_maps:
+          - name: media
+            mountpoint: /mnt
+            directories:
+              - path: "{{ media_shares[0].target }}"
+                server: "{{ media_shares[0].source }}"
+                options:
+                  - nfsvers=3
+                  - rsize=1048576
+                  - wsize=1048576
+                  - ro
+                  - noatime
+              - path: "{{ media_shares[1].target }}"
+                server: "{{ media_shares[1].source }}"
+                options:
+                  - nfsvers=3
+                  - rsize=1048576
+                  - wsize=1048576
+                  - ro
+                  - noatime

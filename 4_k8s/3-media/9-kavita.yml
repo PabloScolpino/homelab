@@ -18,7 +18,8 @@ spec:
     spec:
       containers:
         - name: kavita
-          image: kizaing/kavita:latest
+          image: jvmilazz0/kavita:latest
+          imagePullPolicy: Always
           ports:
             - name: web
               containerPort: 5000

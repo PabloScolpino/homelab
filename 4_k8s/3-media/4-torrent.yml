@@ -17,37 +17,38 @@ spec:
         app: deluge
     spec:
       containers:
-      - name: deluge
-        image: ghcr.io/linuxserver/deluge:2.0.5
-        ports:
-          - name: web
-            containerPort: 8112
-            protocol: TCP
-          - name: torrent
-            containerPort: 6881
-            protocol: TCP
-          - name: torrentudp
-            containerPort: 6881
-            protocol: UDP
-        env:
-        - name: PUID
-          value: "1003"
-        - name: PGID
-          value: "1006"
-        volumeMounts:
-          - name: config
-            mountPath: "/config"
-          - name: downloads
-            mountPath: "/downloads"
+        - name: deluge
+          image: ghcr.io/linuxserver/deluge:latest
+          imagePullPolicy: Always
+          ports:
+            - name: web
+              containerPort: 8112
+              protocol: TCP
+            - name: torrent
+              containerPort: 6881
+              protocol: TCP
+            - name: torrentudp
+              containerPort: 6881
+              protocol: UDP
+          env:
+            - name: PUID
+              value: "1003"
+            - name: PGID
+              value: "1006"
+          volumeMounts:
+            - name: config
+              mountPath: "/config"
+            - name: downloads
+              mountPath: "/downloads"
       securityContext:
         fsGroup: 1006
       volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: deluge-config
-      - name: downloads
-        persistentVolumeClaim:
-          claimName: nas-downloads
+        - name: config
+          persistentVolumeClaim:
+            claimName: deluge-config
+        - name: downloads
+          persistentVolumeClaim:
+            claimName: nas-downloads
 ---
 apiVersion: v1
 kind: Service
@@ -61,15 +62,15 @@ spec:
   selector:
     app: deluge
   ports:
-  - name: web
-    port: 8112
-    protocol: TCP
-  - name: torrent
-    port: 6881
-    protocol: TCP
-  - name: torrentudp
-    port: 6881
-    protocol: UDP
+    - name: web
+      port: 8112
+      protocol: TCP
+    - name: torrent
+      port: 6881
+      protocol: TCP
+    - name: torrentudp
+      port: 6881
+      protocol: UDP
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
