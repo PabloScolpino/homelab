@@ -1,0 +1,30 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: vehicle
+  name: vehicle.ar.olumpos.net
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`vehicle.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: lubelogger
+          port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: vehicle
+  name: vehicle.ar.olumpos.net-tls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`vehicle.ar.olumpos.net`)
+      kind: Rule
+      services:
+        - name: lubelogger
+          port: 80
