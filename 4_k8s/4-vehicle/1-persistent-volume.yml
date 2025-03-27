@@ -1,0 +1,48 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lubelogger-data
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 10.30.0.5
+    path: /mnt/first-pool/volumes/lubelogger/data
+  storageClassName: nfs
+  mountOptions:
+    - nolock
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lubelogger-documents
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 10.30.0.5
+    path: /mnt/first-pool/volumes/lubelogger/documents
+  storageClassName: nfs
+  mountOptions:
+    - nolock
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lubelogger-images
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 10.30.0.5
+    path: /mnt/first-pool/volumes/lubelogger/images
+  storageClassName: nfs
+  mountOptions:
+    - nolock

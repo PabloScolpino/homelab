@@ -1,0 +1,112 @@
+config:
+  # To use an existing ConfigMap uncomment this line and specify the name
+  # useExistingConfigMap: existing-homepage-configmap
+  bookmarks:
+    # - Developer:
+    #     - Github:
+    #         - abbr: GH
+    #           href: https://github.com/
+
+  services: 
+  - Peliculas y Series:
+    - Series:
+        # icon: home-assistant.png
+        href: https://sonar.ar.olumpos.net
+        description: Applicacion para descargar series
+        app: sonar
+        namespace: media
+    - Peliculas:
+        # icon: home-assistant.png
+        href: https://radar.ar.olumpos.net
+        description: Applicacion para descargar peliculas
+        app: radar
+        namespace: media
+    - Subtitulos:
+        # icon: home-assistant.png
+        href: https://bazar.ar.olumpos.net
+        description: Applicacion para descargar subtitulos
+        app: bazar
+        namespace: media
+  - Utilidades:
+    - Lingua Finder:
+        # icon: home-assistant.png
+        href: https://lingua-finder.ar.olumpos.net
+        description: Buscador de palabras en internet
+        app: lingua-finder
+        namespace: lingua-finder
+    - Vehiculo:
+        # icon: home-assistant.png
+        href: https://vehicle.ar.olumpos.net
+        description: Registro de gastos automotor
+        app: lubelogger
+        namespace: vehicle
+  - Paginas hosteadas:
+    - Ana Scolpino:
+        # icon: home-assistant.png
+        href: https://anascolpino.com
+        description: Pagina personal de Ana Scolpino
+        app: anascolpino
+        namespace: anascolpino
+    - Kulturnetz-d:
+        # icon: home-assistant.png
+        href: https://kulturnetz-d.ar
+        description: Clases de aleman de Florencia
+        app: kulturnetzd
+        namespace: kulturnetzd
+  #   - My First Group:
+  #       - My First Service:
+  #           href: http://localhost/
+  #           description: Homepage is awesome
+  #
+  #   - My Second Group:
+  #       - My Second Service:
+  #           href: http://localhost/
+  #           description: Homepage is the best
+  #
+  #   - My Third Group:
+  #       - My Third Service:
+  #           href: http://localhost/
+  #           description: Homepage is 😎
+  widgets:
+    # - resources:
+    #     # change backend to 'kubernetes' to use Kubernetes integration. Requires RBAC.
+    #     backend: resources
+    #     expanded: true
+    #     cpu: true
+    #     memory: true
+    - search:
+        provider: duckduckgo
+        target: _blank
+    ## Uncomment to enable Kubernetes integration
+    # - kubernetes:
+    #     cluster:
+    #       show: true
+    #       cpu: true
+    #       memory: true
+    #       showLabel: true
+    #       label: "cluster"
+    #     nodes:
+    #       show: true
+    #       cpu: true
+    #       memory: true
+    #       showLabel: true
+  kubernetes:
+    # change mode to 'cluster' to use RBAC service account
+    mode: disable
+  docker:
+  settings:
+
+  # all sections can alternately be appended with "String" such as this example settings. This is useful
+  # for defining a stable ordering. Unfortunately Go's (and therefore Helm's) toYaml function sorts keys
+  # and loses and input ordering. Using a string is the best way around this.
+  settingsString: |
+    title: Servicios Internos
+    headerStyle: boxed
+    layout:
+      Peliculas y Series:
+      Utilidades:
+env:
+  - name: HOMEPAGE_ALLOWED_HOSTS
+    # This value must be set
+    # ref: https://gethomepage.dev/installation/#homepage_allowed_hosts
+    value: home.ar.olumpos.net
