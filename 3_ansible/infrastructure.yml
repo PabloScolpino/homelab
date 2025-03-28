@@ -35,7 +35,7 @@
     - terminal
     - docker-node
 
-- hosts: work
+- hosts: workstation
   roles:
     - ansible_dependencies
     - user_in_sudoers
