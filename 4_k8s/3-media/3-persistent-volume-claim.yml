@@ -84,6 +84,8 @@ kind: PersistentVolumeClaim
 metadata:
   namespace: media
   name: nas-downloads
+  annotations:
+    k8up.io/backup: 'false'
 spec:
   volumeName: nas-downloads
   accessModes:
@@ -98,6 +100,8 @@ kind: PersistentVolumeClaim
 metadata:
   namespace: media
   name: nas-movies
+  annotations:
+    k8up.io/backup: 'false'
 spec:
   volumeName: nas-movies
   accessModes:
@@ -112,6 +116,8 @@ kind: PersistentVolumeClaim
 metadata:
   namespace: media
   name: nas-series
+  annotations:
+    k8up.io/backup: 'false'
 spec:
   volumeName: nas-series
   accessModes:
@@ -126,6 +132,8 @@ kind: PersistentVolumeClaim
 metadata:
   namespace: media
   name: nas-books
+  annotations:
+    k8up.io/backup: 'false'
 spec:
   volumeName: nas-books
   accessModes:
@@ -140,6 +148,8 @@ kind: PersistentVolumeClaim
 metadata:
   namespace: media
   name: nas-comics
+  annotations:
+    k8up.io/backup: 'false'
 spec:
   volumeName: nas-comics
   accessModes:
