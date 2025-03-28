@@ -1,3 +1,4 @@
+# NOTE: using local- k3s provisioner
 # ---
 # apiVersion: v1
 # kind: PersistentVolumeClaim
@@ -31,6 +32,8 @@ kind: PersistentVolumeClaim
 metadata:
   namespace: kulturnetzd
   name: kulturnetzd-db
+  annotations:
+    k8up.io/backup: 'false'
 spec:
   accessModes:
     - ReadWriteOnce

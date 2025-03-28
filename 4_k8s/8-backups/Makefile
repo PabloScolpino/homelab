@@ -8,7 +8,6 @@ DEL:=$(K) delete -f
 help:
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-
 create_namespace:
 	$(APPLY) 2-namespace.yml
 
@@ -21,26 +20,23 @@ create_volumes: ## Create persistent volume and persistent volume claim
 	$(MAKE) create_namespace
 	$(APPLY) 3-persistent-volume-claim.yml
 
+create_ingress:
+	$(APPLY) 5-ingress.yml
+
 install_chart: ## Install the helm chart
-	helm repo add anza-labs https://anza-labs.github.io/charts
+	helm repo add k8up-io https://k8up-io.github.io/k8up
 	helm repo update
 
-# https://artifacthub.io/packages/helm/anza-labs/lubelogger
+	# Install k8sup resources
+	kubectl apply -f https://github.com/k8up-io/k8up/releases/download/v2.12.0/k8up-crd.yaml --server-side
 
 install: ## Install the application
-	helm install lubelogger anza-labs/lubelogger --namespace vehicle --create-namespace --version 0.5.12 -f values.yml
+	helm install k8up-io/k8up --generate-name \
+		--namespace backup \
+		--create-namespace
 
 update: ## Update the application
-	$(APPLY) 3-persistent-volume-claim.yml
-	$(APPLY) 3-backup.yml
-	helm upgrade lubelogger anza-labs/lubelogger --namespace vehicle --version 0.5.12 -f values.yml
+	helm upgrade k8up-1743117928 k8up-io/k8up \
+		--namespace backup \
+		--set metrics.enabled=false
 
-
-secret:
-	-$(K) create secret generic backup \
-		--from-literal=applicationKey="changeme" \
-		--from-literal=keyID="changeme" \
-		--from-literal=password="changeme" \
-		--namespace=vehicle
-
-	$(K) modify-secret backup --namespace vehicle

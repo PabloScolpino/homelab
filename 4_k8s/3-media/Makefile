@@ -18,8 +18,8 @@ nfs_test:
 	$(K) apply -f nfs-test.yml -n media
 
 destroy_volumes: down ## Destroy persistent volume and persistent volume claim
-	# -$(DEL) 3-persistent-volume-claim.yml
-	# -$(DEL) 1-persistent-volume-ar.yml -n media
+	-$(DEL) 3-persistent-volume-claim.yml
+	-$(DEL) 1-persistent-volume-ar.yml -n media
 	-$(K) delete pv deluge-config -n media
 	-$(K) delete pv jacket-config -n media
 	-$(K) delete pv kavita-config -n media
@@ -58,35 +58,10 @@ down: ## Scale deployment to 0
 	done
 
 update: ## Update media deployment
+	$(APPLY) 3-backup.yml
 	$(APPLY) 4-torrent.yml
 	$(APPLY) 5-radar.yml
 	$(APPLY) 6-sonar.yml
 	$(APPLY) 7-bazar.yml
 	$(APPLY) 8-jacket.yml
 	$(APPLY) 9-kavita.yml
-
-torrent:
-	# Delete deployments, service
-	-$(DEL) 4-torrent.yml --namespace media
-
-	# Try to delete the pod sooner
-	# $(K) delete pod $$podname --grace-period=0 --force -n media; \
-	for podname in `$(K) get pod -n media | grep deluge | cut -f1 -d' '`; do \
-		echo $$podname; \
-		$(K) delete pod $$podname -n media; \
-	done
-
-	# Delete PVC
-	-$(K) delete pvc deluge-config --namespace media
-	-$(K) delete pvc nas-downloads --namespace media
-	# -$(DEL) 3-jacket-pvc.yml --namespace media
-
-	# Delete PV
-	-$(K) delete pv deluge-config
-	-$(K) delete pv nas-downloads
-
-	$(MAKE) create_volumes
-
-	# Create deployment, service
-	$(APPLY) 4-torrent.yml
-

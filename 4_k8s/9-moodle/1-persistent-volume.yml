@@ -1,0 +1,15 @@
+# NOTE: using local- k3s provisioner
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: kulturnetzd-files
+# spec:
+#   capacity:
+#     storage: 200Gi
+#   accessModes:
+#     - ReadWriteMany
+#   nfs:
+#     server: nas.ar.olumpos.lan
+#     path: "/mnt/first-pool/volumes/kulturnetzd-files"
+#   storageClassName: nfs
