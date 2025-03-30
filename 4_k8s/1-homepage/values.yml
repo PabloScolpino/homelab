@@ -7,7 +7,7 @@ config:
     #         - abbr: GH
     #           href: https://github.com/
 
-  services: 
+  services:
   - Peliculas y Series:
     - Series:
         # icon: home-assistant.png
@@ -40,6 +40,24 @@ config:
         description: Registro de gastos automotor
         app: lubelogger
         namespace: vehicle
+    - Torrent:
+        # icon: home-assistant.png
+        href: https://torrent.ar.olumpos.net
+        description: Applicacion para DESCARGAR torrents
+        app: deluge
+        namespace: media
+    - Jacket:
+        # icon: home-assistant.png
+        href: https://jacket.ar.olumpos.net
+        description: Applicacion para BUSCAR torrents
+        app: jacket
+        namespace: media
+    - Kavita:
+        # icon: home-assistant.png
+        href: https://kavita.ar.olumpos.net
+        description: Applicacion para leer comics y ebooks
+        app: kavita
+        namespace: media
   - Paginas hosteadas:
     - Ana Scolpino:
         # icon: home-assistant.png
@@ -74,9 +92,9 @@ config:
     #     expanded: true
     #     cpu: true
     #     memory: true
-    - search:
-        provider: duckduckgo
-        target: _blank
+    # - search:
+    #     provider: duckduckgo
+    #     target: _blank
     ## Uncomment to enable Kubernetes integration
     # - kubernetes:
     #     cluster:

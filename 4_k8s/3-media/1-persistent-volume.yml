@@ -1,0 +1,111 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: deluge-config
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 10.30.0.5
+    path: /mnt/first-pool/volumes/deluge/config
+  storageClassName: nfs
+  mountOptions:
+    - nolock
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kavita-config
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  iscsi:
+    iqn: iqn.2005-10.org.freenas.ctl:kavita
+    lun: 0
+    targetPortal: 10.30.0.5
+  storageClassName: iscsi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nas-movies
+spec:
+  capacity:
+    storage: 2000Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 10.30.0.5
+    path: /mnt/first-pool/archivos-red/media/Movies
+  storageClassName: nfs
+  mountOptions:
+    - nolock
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nas-series
+spec:
+  capacity:
+    storage: 2000Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 10.30.0.5
+    path: /mnt/first-pool/archivos-red/media/Series
+  storageClassName: nfs
+  mountOptions:
+    - nolock
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nas-books
+spec:
+  capacity:
+    storage: 2000Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 10.30.0.5
+    path: /mnt/first-pool/archivos-red/media/books
+  storageClassName: nfs
+  mountOptions:
+    - nolock
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nas-comics
+spec:
+  capacity:
+    storage: 2000Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 10.30.0.5
+    path: /mnt/first-pool/archivos-red/media/comics
+  storageClassName: nfs
+  mountOptions:
+    - nolock
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nas-downloads
+spec:
+  capacity:
+    storage: 2000Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 10.30.0.5
+    path: /mnt/first-pool/archivos-red/downloads
+  mountOptions:
+    - nolock
+  storageClassName: nfs

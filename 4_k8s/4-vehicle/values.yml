@@ -1,2 +1,19 @@
-
-# values in https://artifacthub.io/packages/helm/anza-labs/lubelogger
+persistence:
+  data:
+    accessMode: "ReadWriteMany"
+    enabled: true
+    existingClaim: "lubelogger-data"
+    size: "10Gi"
+    storageClass: "nfs"
+  documents:
+    accessMode: "ReadWriteMany"
+    enabled: true
+    existingClaim: "lubelogger-documents"
+    size: "10Gi"
+    storageClass: "nfs"
+  images:
+    accessMode: "ReadWriteMany"
+    enabled: true
+    existingClaim: "lubelogger-images"
+    size: "10Gi"
+    storageClass: "nfs"
