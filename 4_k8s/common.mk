@@ -65,3 +65,11 @@ install_application: install_chart
 	else \
 		$$HELM_CMD; \
 	fi
+
+update_application:
+	@HELM_CMD="helm upgrade $(APP) $(CHART) --namespace $(NS) -f values.yml";\
+	if [ -f secrets.yml ]; then \
+		$$HELM_CMD -f secrets.yml; \
+	else \
+		$$HELM_CMD; \
+	fi
