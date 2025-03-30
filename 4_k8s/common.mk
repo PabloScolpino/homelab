@@ -1,4 +1,4 @@
-.PHONY: all help
+.PHONY: all help common install update upgrade
 all: help
 
 help:
@@ -62,6 +62,13 @@ create_deployment: ## Create the deployment
 	# Creating the deployment
 	$(APPLY) 4-deployment.yml
 
+create_deployments: ## Create the services' deployments
+	for service in $(SERVICES); do \
+		echo ""; \
+		echo "Creating deployment for $$service"; \
+		$(APPLY) 4-$$service.yml --namespace $(NS); \
+	done
+
 create_ingress: ## Create the ingress
 	@echo
 	# Creating the ingress route
@@ -100,7 +107,10 @@ create_helm_secrets: ## Create the helm secrets file
 	vi secrets.yml
 
 install_application: install_chart
-	@HELM_CMD="helm install $(APP) $(CHART) --namespace $(NS) -f values.yml";\
+	@HELM_CMD="helm install $(APP) $(CHART) --namespace $(NS)";\
+	if [ -f values.yml ]; then \
+		HELM_CMD="$$HELM_CMD -f values.yml"; \
+	fi; \
 	if [ -f secrets.yml ]; then \
 		$$HELM_CMD -f secrets.yml; \
 	else \
@@ -108,7 +118,10 @@ install_application: install_chart
 	fi
 
 update_application:
-	@HELM_CMD="helm upgrade $(APP) $(CHART) --namespace $(NS) -f values.yml";\
+	@HELM_CMD="helm upgrade $(APP) $(CHART) --namespace $(NS)";\
+	if [ -f values.yml ]; then \
+		HELM_CMD="$$HELM_CMD -f values.yml"; \
+	fi; \
 	if [ -f secrets.yml ]; then \
 		$$HELM_CMD -f secrets.yml; \
 	else \

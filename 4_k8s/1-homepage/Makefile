@@ -1,6 +1,7 @@
 NS:=homepage
 APP:=homepage
 CHART:=jameswynn/homepage
+#
 CHART_REPO:=jameswynn https://jameswynn.github.io/helm-charts
 
 include ../common.mk
@@ -11,7 +12,6 @@ common:
 
 install: ## Install the application
 	$(MAKE) common
-
 	$(MAKE) install_application
 
 update: ## Update the application

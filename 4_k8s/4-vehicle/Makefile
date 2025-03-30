@@ -6,8 +6,6 @@ CHART_REPO:=anza-labs https://anza-labs.github.io/charts
 
 include ../common.mk
 
-.PHONY: install
-
 common:
 	$(MAKE) create_namespace
 	$(MAKE) create_pv
@@ -17,7 +15,6 @@ common:
 
 install: check_helm_secrets ## Install the application
 	$(MAKE) common
-
 	$(MAKE) install_application
 
 update: ## Update the application
