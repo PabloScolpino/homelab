@@ -4,7 +4,7 @@ CHART:=bitnami/moodle
 # 
 CHART_REPO:= bitnami https://charts.bitnami.com/bitnami
 
-include ../common.mk
+include ../common_ns.mk
 
 common:
 	$(MAKE) create_namespace

@@ -2,7 +2,7 @@ APP:=media
 NS:=media
 SERVICES:=deluge radar sonar jacket kavita bazar
 
-include ../common.mk
+include ../common_ns.mk
 
 install: ## Install the application
 	$(MAKE) create_namespace

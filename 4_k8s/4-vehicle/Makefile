@@ -4,7 +4,7 @@ CHART:=anza-labs/lubelogger
 # https://artifacthub.io/packages/helm/anza-labs/lubelogger
 CHART_REPO:=anza-labs https://anza-labs.github.io/charts
 
-include ../common.mk
+include ../common_ns.mk
 
 common:
 	$(MAKE) create_namespace

@@ -2,7 +2,7 @@ NS:=status
 APP:=status
 SERVICES:=smokeping
 
-include ../common.mk
+include ../common_ns.mk
 
 install: ## Install the application
 	$(MAKE) create_pv

@@ -4,7 +4,7 @@ CHART:=jameswynn/homepage
 #
 CHART_REPO:=jameswynn https://jameswynn.github.io/helm-charts
 
-include ../common.mk
+include ../common_ns.mk
 
 common:
 	$(MAKE) create_namespace
