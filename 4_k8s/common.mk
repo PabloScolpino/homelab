@@ -6,8 +6,10 @@ help:
 
 K:=kubectl
 APPLY:=$(K) apply -f
-DEL:=$(K) delete -f
+DELETE:=$(K) delete -f
 
+################################################################################
+### K8s Actions
 create_namespace: ## Create the namespace if missing
 	@echo
 	# Creating Namespace
@@ -21,7 +23,25 @@ create_pv: ## Create the persistent volumes
 create_pvc: ## Create the persistent volumes claims
 	@echo
 	# Creating PVC
-	$(APPLY) 3-persistent-volume-claim.yml
+	$(APPLY) 2-persistent-volume-claim.yml
+
+list_volumes: ## Show volumes
+	@echo
+	# PersistentVolume
+	$(K) get pv
+	
+	@echo
+	# PersistentVolumeClaims for namespace
+	$(K) get pvc --namespace $(NS)
+
+delete_volumes: ## Show volumes
+	@echo
+	# Deleting PV
+	$(DELETE) 1-persistent-volume.yml
+
+	@echo
+	# Deleting PVC
+	$(DELETE) 2-persistent-volume-claim.yml
 
 create_backup: ## Create the backup schedule
 	@echo
@@ -37,11 +57,32 @@ create_secret_backup: ## Create the secret for backup
 
 	$(K) modify-secret backup --namespace vehicle
 
+create_deployment: ## Create the deployment
+	@echo
+	# Creating the deployment
+	$(APPLY) 4-deployment.yml
+
 create_ingress: ## Create the ingress
 	@echo
 	# Creating the ingress route
 	$(APPLY) 5-ingress.yml
 
+up: ## Scale deployment to 1
+	@echo
+	# STARTING all services
+	for service in $(SERVICES); do \
+		$(K) scale --replicas=1 deployment.apps/$$service --namespace $(NS); \
+	done
+
+down: ## Scale deployment to 0
+	@echo
+	# STOPPING all services
+	for service in $(SERVICES); do \
+		$(K) scale --replicas=0 deployment.apps/$$service --namespace $(NS); \
+	done
+
+################################################################################
+### Helm Actions
 install_chart:
 	helm repo add $(CHART_REPO)
 	helm repo update
