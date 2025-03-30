@@ -7,61 +7,64 @@ help:
 K:=kubectl
 APPLY:=$(K) apply -f
 DEL:=$(K) delete -f
+
+APP:=media
+NS:=media
 SERVICES:=deluge radar sonar jacket kavita bazar
 
-pv:
-	$(K) get pv
-	$(K) get pvc --namespace media
-
-nfs_test:
-	-$(K) delete -f nfs-test.yml -n media
-	$(K) apply -f nfs-test.yml -n media
-
-destroy_volumes: down ## Destroy persistent volume and persistent volume claim
-	-$(DEL) 3-persistent-volume-claim.yml
-	-$(DEL) 1-persistent-volume-ar.yml -n media
-	-$(K) delete pv deluge-config -n media
-	-$(K) delete pv jacket-config -n media
-	-$(K) delete pv kavita-config -n media
-	-$(K) delete pv nas-books -n media
-	-$(K) delete pv nas-comics -n media
-	-$(K) delete pv nas-downloads -n media
-	-$(K) delete pv nas-movies -n media
-	-$(K) delete pv nas-series -n media
+create_namespace:
+	@echo
+	# Creating Namespace
+	-$(K) create namespace $(NS)
 
 create_volumes: ## Create persistent volume and persistent volume claim
+	@echo
 	# Creating PV
-	$(APPLY) 1-persistent-volume-ar.yml
-
-	# Creating Namespace
-	$(MAKE) create_namespace
-
+	$(APPLY) 1-persistent-volume.yml
+	@echo
 	# Creating PVC
 	$(APPLY) 3-persistent-volume-claim.yml
 
-create_namespace:
-	$(APPLY) 2-namespace.yml
-
-create: ## create status deployment
-	$(MAKE) create_volumes
-	$(MAKE) create_namespace
-	$(MAKE) update
-
-up: ## Scale deployment to 1
-	for service in $(SERVICES); do \
-		$(K) scale --replicas=1 deployment.apps/$$service -n media; \
-	done
-
-down: ## Scale deployment to 0
-	for service in $(SERVICES); do \
-		$(K) scale --replicas=0 deployment.apps/$$service -n media; \
-	done
-
-update: ## Update media deployment
+create_backup: ## Create/Update the backup
+	@echo
+	# Creating the backup
 	$(APPLY) 3-backup.yml
+
+create_deployments: ## Create the services' deployments
+	@echo
+	# Update each service
 	$(APPLY) 4-torrent.yml
 	$(APPLY) 5-radar.yml
 	$(APPLY) 6-sonar.yml
 	$(APPLY) 7-bazar.yml
 	$(APPLY) 8-jacket.yml
 	$(APPLY) 9-kavita.yml
+
+install: ## Install the application
+	$(MAKE) create_namespace
+	$(MAKE) create_volumes
+	$(MAKE) create_backup
+	$(MAKE) create_deployments
+
+update: install ## Update the application
+	# Stopping all services and bringing them up again to force an image pull
+
+	$(MAKE) down
+	@echo
+	# Sleeping for 1 second
+	sleep 1
+	$(MAKE) up
+
+up: ## Scale deployment to 1
+	@echo
+	# STARTING all services
+	for service in $(SERVICES); do \
+		$(K) scale --replicas=1 deployment.apps/$$service --namespace $(NS); \
+	done
+
+down: ## Scale deployment to 0
+	@echo
+	# STOPPING all services
+	for service in $(SERVICES); do \
+		$(K) scale --replicas=0 deployment.apps/$$service --namespace $(NS); \
+	done

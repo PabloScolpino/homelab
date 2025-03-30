@@ -1,1 +1,3 @@
 nb-site-kubeconfig.yml
+**/secrets.yml
+secrets.yml
