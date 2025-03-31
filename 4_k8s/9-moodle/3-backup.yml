@@ -36,3 +36,30 @@ spec:
       keepWeekly: 4
       keepMonthly: 6
       keepYearly: 2
+---
+apiVersion: k8up.io/v1
+kind: PreBackupPod
+metadata:
+  name: mysqldump
+  namespace: kulturnetzd
+spec:
+  backupCommand: sh -c 'mysqldump --user=${USER} --password=${PASSWORD} --host=${DB_HOST} --all-databases'
+  pod:
+    spec:
+      containers:
+        - env:
+            - name: USER
+              value: root
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: kulturnetzd-mariadb
+                  key: mariadb-root-password
+            - name: DB_HOST
+              value: kulturnetzd-mariadb
+          image: docker.io/bitnami/mariadb:10.5.15-debian-10-r11
+          command:
+            - 'sleep'
+            - 'infinity'
+          imagePullPolicy: Always
+          name: mysqldump
