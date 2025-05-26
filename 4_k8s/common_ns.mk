@@ -17,28 +17,48 @@ create_pvc: ## Create the persistent volumes claims
 	# Creating PVC
 	$(APPLY) 2-persistent-volume-claim.yml
 
-delete_volumes: ## Show volumes
-	@echo
-	# Deleting PV
-	$(DELETE) 1-persistent-volume.yml
-
+delete_volumes: ## Delete Volumes
 	@echo
 	# Deleting PVC
 	$(DELETE) 2-persistent-volume-claim.yml
+
+	@echo
+	# Deleting PV
+	$(DELETE) 1-persistent-volume.yml
 
 create_backup: ## Create the backup schedule
 	@echo
 	# Creating the backup
 	$(APPLY) 3-backup.yml
 
+list_backup: ## List the backup related resources
+	# Pods
+	$(K) get pods --namespace $(NS)
+	# Backup
+	$(K) get backup --namespace $(NS)
+	# Schedule
+	$(K) get schedule --namespace $(NS)
+	# PreBackupPod
+	$(K) get prebackuppod --namespace $(NS)
+
 create_secret_backup: ## Create the secret for backup
 	-$(K) create secret generic backup \
 		--from-literal=applicationKey="changeme" \
 		--from-literal=keyID="changeme" \
 		--from-literal=password="changeme" \
-		--namespace=vehicle
+		--namespace=$(NS)
 
-	$(K) modify-secret backup --namespace vehicle
+	$(K) modify-secret backup --namespace $(NS)
+
+create_secret_ghcr: ## Create the secret for pulling images from ghcr
+	-$(K) create secret docker-registry ghcr-credentials \
+		--docker-server=ghcr.io \
+		--docker-username=username \
+		--docker-password=ghcr_token_with_package_pull \
+		--docker-email=user@example.com \
+		--namespace=$(NS)
+
+	$(K) modify-secret ghcr-credentials --namespace $(NS)
 
 create_deployment: ## Create the deployment
 	@echo
@@ -90,7 +110,7 @@ create_helm_secrets: ## Create the helm secrets file
 	vi secrets.yml
 
 install_application: install_chart
-	@HELM_CMD="helm install $(APP) $(CHART) --namespace $(NS)";\
+	HELM_CMD="helm install $(APP) $(CHART) --namespace $(NS)";\
 	if [ -f values.yml ]; then \
 		HELM_CMD="$$HELM_CMD -f values.yml"; \
 	fi; \
@@ -101,7 +121,7 @@ install_application: install_chart
 	fi
 
 update_application:
-	@HELM_CMD="helm upgrade $(APP) $(CHART) --namespace $(NS)";\
+	HELM_CMD="helm upgrade $(APP) $(CHART) --namespace $(NS)";\
 	if [ -f values.yml ]; then \
 		HELM_CMD="$$HELM_CMD -f values.yml"; \
 	fi; \
