@@ -5,15 +5,12 @@ persistence:
     existingClaim: "lubelogger-data"
     size: "10Gi"
     storageClass: "nfs"
-  documents:
-    accessMode: "ReadWriteMany"
-    enabled: true
-    existingClaim: "lubelogger-documents"
-    size: "10Gi"
-    storageClass: "nfs"
-  images:
-    accessMode: "ReadWriteMany"
-    enabled: true
-    existingClaim: "lubelogger-images"
-    size: "10Gi"
-    storageClass: "nfs"
+
+securityContext:
+  runAsGroup: 1006
+  runAsUser: 1003
+  runAsNonRoot: true
+podSecurityContext:
+  runAsGroup: 1006
+  runAsUser: 1003
+  runAsNonRoot: true
