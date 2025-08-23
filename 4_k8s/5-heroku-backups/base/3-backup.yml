@@ -1,0 +1,117 @@
+---
+apiVersion: k8up.io/v1
+kind: Schedule
+metadata:
+  name: backup-schedule
+spec:
+  backend:
+    repoPasswordSecretRef:
+      name: backup
+      key: password
+    s3:
+      endpoint: s3.us-west-004.backblazeb2.com
+      bucket: placeholder-bucket-name
+      accessKeyIDSecretRef:
+        name: backup
+        key: keyID
+      secretAccessKeySecretRef:
+        name: backup
+        key: applicationKey
+  failedJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 3
+  backup:
+    schedule: '* 2 * * *'
+    failedJobsHistoryLimit: 6
+    successfulJobsHistoryLimit: 6
+    # optional
+    #promURL: https://prometheus-io-instance:8443
+  check:
+    schedule: '0 0 * * *'
+    # optional
+    #promURL: https://prometheus-io-instance:8443
+  prune:
+    schedule: '0 0 * * *'
+    retention:
+      keepLast: 5
+      keepDaily: 7
+      keepWeekly: 4
+      keepMonthly: 6
+      keepYearly: 2
+
+---
+apiVersion: k8up.io/v1
+kind: PreBackupPod
+metadata:
+  name: backup-cloudinary
+spec:
+  backupCommand: sh -c '/app/backup.sh'
+  fileExtension: .tar
+  pod:
+    spec:
+      containers:
+        - name: cld-to-stdout
+          image: ghcr.io/nbcasts/cld-to-stdout:latest
+          imagePullPolicy: Always
+          command:
+            - 'sleep'
+            - 'infinity'
+          env:
+          - name: CLOUDINARY_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: cloudinary-credentials
+                key: api-key
+          - name: CLOUDINARY_API_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: cloudinary-credentials
+                key: api-secret
+          - name: CLOUDINARY_CLOUD_NAME
+            valueFrom:
+              secretKeyRef:
+                name: cloudinary-credentials
+                key: cloud-name
+---
+apiVersion: k8up.io/v1
+kind: PreBackupPod
+metadata:
+  name: backup-db
+spec:
+  backupCommand: sh -c 'pg_dump --dbname="$DATABASE_URL" --clean --if-exists --no-owner --no-privileges --verbose --compress=9'
+  fileExtension: .sql.gz
+  pod:
+    spec:
+      containers:
+        - name: pgdump
+          image: postgres:14-alpine
+          command:
+            - 'sleep'
+            - 'infinity'
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: database-url
+          imagePullPolicy: Always
+# ---
+# apiVersion: k8up.io/v1
+# kind: Backup
+# metadata:
+#   name: manual-backup
+# spec:
+#   backend:
+#     repoPasswordSecretRef:
+#       name: backup
+#       key: password
+#     s3:
+#       endpoint: s3.us-west-004.backblazeb2.com
+#       bucket: placeholder-bucket-name
+#       accessKeyIDSecretRef:
+#         name: backup
+#         key: keyID
+#       secretAccessKeySecretRef:
+#         name: backup
+#         key: applicationKey
+#   failedJobsHistoryLimit: 3
+#   successfulJobsHistoryLimit: 3

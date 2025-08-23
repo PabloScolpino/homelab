@@ -1,0 +1,8 @@
+apiVersion: k8up.io/v1
+kind: Schedule
+metadata:
+  name: backup-schedule
+spec:
+  backend:
+    s3:
+      bucket: backup-publicationmapper
